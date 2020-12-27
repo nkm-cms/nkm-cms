@@ -39,3 +39,9 @@ export const matchNumber = str => /^\d+$/.test(str)
  * @param {String} str
  */
 export const matchFloatNumber = str => /^\d+(\.\d+)?$/.test(str)
+
+/**
+ * 校验编码
+ * @param {String} str
+ */
+export const matchCode = str => /^[a-z\d-_]+$/gi.test(str)
