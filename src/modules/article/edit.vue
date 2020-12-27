@@ -145,6 +145,10 @@ export default {
           ...this.formModel
         })
         window.common.hideLoading()
+        window.common.showMessage({
+          type: 'success',
+          message: '文章保存成功'
+        })
         this._close()
       })
     },
