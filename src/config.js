@@ -3,6 +3,6 @@ export const DEFAULT_INDEX_ROUTER = {
   name: 'Dashboard'
 }
 
-export const APP_TITLE = 'nkm-admin'
+export const APP_TITLE = 'nkm-cms'
 
 export const AVATAR = require('./assets/images/avatar/Fruit-1.png')

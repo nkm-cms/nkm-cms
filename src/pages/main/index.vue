@@ -18,7 +18,7 @@
           </el-col>
 
           <el-col :span="10" class="right-info flex align-right">
-            <a href="https://github.com/nkm-admin" target="_blank" class="m-r-10px" style="display:inherit;">
+            <a href="https://github.com/nkm-admin/nkm-cms" target="_blank" class="m-r-10px" style="display:inherit;">
               <x-svg-icon
                 icon="github"
                 :custom-style="{
