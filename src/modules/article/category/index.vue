@@ -64,7 +64,7 @@ export default {
   },
 
   computed: {
-    ...mapState('category', ['tree'])
+    ...mapState('article/category', ['tree'])
   },
 
   created () {
@@ -72,7 +72,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('category', ['getList']),
+    ...mapActions('article/category', ['getList']),
 
     async init () {
       window.common.showLoading()

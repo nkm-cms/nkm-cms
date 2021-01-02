@@ -1,17 +1,19 @@
-export default [
-  {
-    name: 'Article',
-    path: '/article',
-    meta: {
-      title: '文章管理'
-    },
-    component: () => import(/* webpackChunkName: 'article' */ './index')
-  }, {
-    name: 'ArticleEdit',
-    path: '/article/edit/:id?',
-    meta: {
-      title: '文章编辑'
-    },
-    component: () => import(/* webpackChunkName: 'article' */ './edit')
-  }
-]
+import category from './category/.router'
+import articleList from './articleList/.router'
+
+export default {
+  path: 'article',
+  name: 'Article',
+  component: {
+    render () {
+      return (<router-view/>)
+    }
+  },
+  meta: {
+    title: '文章管理'
+  },
+  children: [
+    category,
+    ...articleList
+  ]
+}

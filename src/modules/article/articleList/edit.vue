@@ -1,24 +1,36 @@
 <template>
-  <el-form ref="form" :model="formModel" :rules="rules" label-width="100px">
-    <el-row>
+  <el-form ref="form" :model="formModel" :rules="rules" label-width="60px">
+    <el-row :gutter="20">
       <el-col :span="17">
         <el-form-item prop="title" label="标题">
           <el-input v-model="formModel.title"></el-input>
         </el-form-item>
-        <el-form-item prop="categoryId" label="栏目">
-          <el-select v-model="formModel.categoryId" clearable filterable class="w-100">
-            <el-option
-              v-for="item in categoryList"
-              :key="item.id"
-              :value="item.id"
-              :label="item.name"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item prop="status" label="状态">
-          <el-radio v-model="formModel.status" :label="0">草稿</el-radio>
-          <el-radio v-model="formModel.status" :label="1">发布</el-radio>
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item prop="categoryId" label="栏目">
+              <el-select v-model="formModel.categoryId" clearable filterable class="w-100">
+                <el-option
+                  v-for="item in categoryList"
+                  :key="item.id"
+                  :value="item.id"
+                  :label="item.name"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item prop="status" label="状态">
+              <el-select v-model="formModel.status" clearable class="w-100">
+                <el-option
+                  v-for="item in statusList"
+                  :key="item.value"
+                  :value="item.value"
+                  :label="item.label"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-col>
       <el-col :span="7">
         <el-form-item prop="thumbnail" label="缩略图">
@@ -38,6 +50,15 @@
     </el-row>
     <el-form-item prop="content" label="内容">
       <x-editor v-model="formModel.content" />
+    </el-form-item>
+    <el-form-item prop="summary" label="摘要">
+      <el-input
+        v-model="formModel.summary"
+        type="textarea"
+        maxlength="300"
+        show-wrod-limt
+        autosize
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="_save">保存</el-button>
@@ -60,10 +81,11 @@ export default {
       formModel: {
         title: '',
         content: '',
+        keywords: '',
+        summary: '',
         status: 1,
         categoryId: null,
-        thumbnail: '',
-        images: []
+        thumbnail: ''
       },
       rules: {
         title: [
@@ -72,12 +94,23 @@ export default {
         categoryId: [
           { required: true, message: '栏目不能为空' }
         ]
-      }
+      },
+
+      statusList: [
+        {
+          label: '草稿',
+          value: 0
+        },
+        {
+          label: '发布',
+          value: 1
+        }
+      ]
     }
   },
 
   computed: {
-    ...mapState('category', {
+    ...mapState('article/category', {
       categoryList: state => state.flatList
     })
   },
@@ -87,8 +120,8 @@ export default {
   },
 
   methods: {
-    ...mapMutations('article', ['UPDATE_CURRENT_PAGE']),
-    ...mapActions('category', {
+    ...mapMutations('article/articleList', ['UPDATE_CURRENT_PAGE']),
+    ...mapActions('article/category', {
       getCategoryList: 'getList'
     }),
 

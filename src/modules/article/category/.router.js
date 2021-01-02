@@ -1,6 +1,6 @@
 export default {
-  name: 'Category',
-  path: '/category',
+  name: 'ArticleCategory',
+  path: 'category',
   meta: {
     title: '栏目管理'
   },

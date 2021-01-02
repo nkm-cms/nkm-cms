@@ -78,7 +78,7 @@ export default {
   },
 
   computed: {
-    ...mapState('category', ['flatList']),
+    ...mapState('article/category', ['flatList']),
     dialogTitle () {
       const type = {
         add: '新增栏目',
