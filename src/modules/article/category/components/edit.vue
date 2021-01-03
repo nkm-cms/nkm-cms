@@ -17,7 +17,7 @@
       </el-form-item>
       <el-form-item prop="parentId" label="父级栏目">
         <el-select v-model="formModel.parentId" clearable class="w-100">
-          <el-option :value="0" label="请选择"></el-option>
+          <el-option :value="0" label="顶级栏目"></el-option>
           <el-option v-for="item in flatList" :key="item.id" :value="item.id" :label="item.name"></el-option>
         </el-select>
       </el-form-item>
@@ -57,7 +57,7 @@ export default {
         code: '',
         path: '',
         type: 'list',
-        parentId: null,
+        parentId: 0,
         sort: 0,
         visible: 1
       },
