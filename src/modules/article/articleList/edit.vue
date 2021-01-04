@@ -62,7 +62,7 @@
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="_save">保存</el-button>
-      <el-button @click="_close">关闭</el-button>
+      <el-button @click="_close">返回</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -193,7 +193,9 @@ export default {
 
     _close () {
       this._reset()
-      this.$router.go(-1)
+      this.$router.push({
+        name: 'ArticleList'
+      })
     }
   }
 }
