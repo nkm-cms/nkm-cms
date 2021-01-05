@@ -20,6 +20,7 @@ export default {
   methods: {
     __close () {
       this._reset && this._reset()
+      this.$emit('close')
       this.$emit('update:visible', false)
       this.$emit('update:type', 'add')
     }
