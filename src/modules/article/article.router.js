@@ -1,5 +1,6 @@
 import category from './category/.router'
 import articleList from './articleList/.router'
+import tags from './tags/.router'
 
 export default {
   path: 'article',
@@ -14,6 +15,7 @@ export default {
   },
   children: [
     category,
-    ...articleList
+    ...articleList,
+    tags
   ]
 }
