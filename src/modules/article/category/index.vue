@@ -98,7 +98,7 @@ export default {
         callback: async action => {
           if (action === 'confirm') {
             window.common.showLoading('删除中...')
-            await API.category.del({ id })
+            await API['article/category'].del({ id })
             window.common.hideLoading()
             this.init()
           }

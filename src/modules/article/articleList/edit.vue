@@ -135,7 +135,7 @@ export default {
     async _getDetail () {
       try {
         window.common.showLoading('文章详情加载中...')
-        const { data } = await API.article.getDetail(this.$route.params.id)
+        const { data } = await API['article/article'].getDetail(this.$route.params.id)
         window.common.hideLoading()
         this.formModel = Object.assign(this.formModel, data.data)
       } catch (err) {
@@ -174,7 +174,7 @@ export default {
       this.$refs.form.validate(async isValid => {
         if (!isValid) return
         window.common.showLoading('保存中...')
-        await API.article.save({
+        await API['article/article'].save({
           ...this.formModel
         })
         window.common.hideLoading()

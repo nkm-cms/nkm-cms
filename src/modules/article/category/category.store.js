@@ -20,7 +20,7 @@ export default {
   actions: {
     async getList ({ commit }) {
       try {
-        let { data } = await API.category.getList()
+        let { data } = await API['article/category'].getList()
         commit(UPDATE_FLAT_LIST, data.data)
         commit(UPDATE_TREE, sortTreeArr(deepTree(data.data)))
         return Promise.resolve(data.data)

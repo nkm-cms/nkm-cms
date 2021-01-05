@@ -27,7 +27,7 @@ export default {
   actions: {
     async getList ({ commit, state }) {
       try {
-        let { data } = await API.article.getList({
+        let { data } = await API['article/article'].getList({
           page: state.currentPage,
           limit: DEFAULT_PAGE_LIMIT
         })
