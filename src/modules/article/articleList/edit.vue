@@ -31,6 +31,25 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-form-item>
+          <template #label>
+            标签 <el-tooltip content="标签添加请至标签列表处添加" placement="top"><i class="el-icon-info"></i></el-tooltip>
+          </template>
+          <el-select
+            v-model="formModel.tags"
+            multiple
+            class="w-100"
+            filterable
+            value-key="id"
+          >
+            <el-option
+              v-for="item in tagsAllList"
+              :key="item.id"
+              :value="item"
+              :label="item.name"
+            />
+          </el-select>
+        </el-form-item>
       </el-col>
       <el-col :span="7">
         <el-form-item prop="thumbnail" label="缩略图">
@@ -85,7 +104,8 @@ export default {
         summary: '',
         status: 1,
         categoryId: null,
-        thumbnail: ''
+        thumbnail: '',
+        tags: []
       },
       rules: {
         title: [
@@ -112,6 +132,9 @@ export default {
   computed: {
     ...mapState('article/category', {
       categoryList: state => state.flatList
+    }),
+    ...mapState('article/tags', {
+      tagsAllList: state => state.allList
     })
   },
 
@@ -121,13 +144,17 @@ export default {
 
   methods: {
     ...mapMutations('article/articleList', ['UPDATE_CURRENT_PAGE']),
+    ...mapActions('article/tags', {
+      getTagsAllList: 'getAllList'
+    }),
     ...mapActions('article/category', {
       getCategoryList: 'getList'
     }),
 
     async _getCategoryList () {
-      window.common.showLoading('栏目加载中...')
+      window.common.showLoading('加载中...')
       await this.getCategoryList()
+      await this.getTagsAllList()
       window.common.hideLoading()
       this.$route.params.id && this._getDetail()
     },
@@ -175,7 +202,8 @@ export default {
         if (!isValid) return
         window.common.showLoading('保存中...')
         await API['article/article'].save({
-          ...this.formModel
+          ...this.formModel,
+          tags: JSON.stringify(this.formModel.tags)
         })
         window.common.hideLoading()
         window.common.showMessage({
