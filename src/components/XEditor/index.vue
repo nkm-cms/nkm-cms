@@ -48,29 +48,27 @@ export default {
           progressComponentExample,
           stepsComponentExample
         ],
-        uploader(type) {
-          if (type === 'image') {
-            return new Promise((resolve, reject) => {
-              const fileInput = document.createElement('input')
-              fileInput.setAttribute('type', 'file')
-              fileInput.setAttribute('accept', 'image/*')
-              fileInput.onchange = async event => {
-                try {
-                  const forData = new FormData()
-                  const files = event.target.files
-                  forData.append('type', 'editor')
-                  for (let i = 0; i < files.length; i++) {
-                    forData.append('files', files[i])
-                  }
-                  const { data } = await API.upload(forData)
-                  resolve(data.data[0].url)
-                } catch (err) {
-                  reject()
+        uploader() {
+          return new Promise((resolve, reject) => {
+            const fileInput = document.createElement('input')
+            fileInput.setAttribute('type', 'file')
+            fileInput.setAttribute('accept', 'image/*,audio/*,video/*')
+            fileInput.onchange = async event => {
+              try {
+                const forData = new FormData()
+                const files = event.target.files
+                forData.append('type', 'editor')
+                for (let i = 0; i < files.length; i++) {
+                  forData.append('files', files[i])
                 }
+                const { data } = await API.upload(forData)
+                resolve(data.data[0].url)
+              } catch (err) {
+                reject()
               }
-              fileInput.click()
-            })
-          }
+            }
+            fileInput.click()
+          })
         }
       })
 
