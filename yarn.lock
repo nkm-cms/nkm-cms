@@ -966,10 +966,10 @@
   resolved "https://registry.npm.taobao.org/@tanbo/di/download/@tanbo/di-0.0.19.tgz#b6b7ec0b38ac5394964ed196451f4fdaa857d0dd"
   integrity sha1-trfsCzisU5SWTtGWRR9P2qhX0N0=
 
-"@tanbo/textbus@^1.0.0-alpha.38":
-  version "1.0.0-alpha.38"
-  resolved "https://registry.npm.taobao.org/@tanbo/textbus/download/@tanbo/textbus-1.0.0-alpha.38.tgz#accaae473882d81615006b93f8977aeb91fc8f0c"
-  integrity sha1-rMquRziC2BYVAGuT+Jd665H8jww=
+"@tanbo/textbus@^1.0.0-alpha.40":
+  version "1.0.0-alpha.40"
+  resolved "https://registry.npm.taobao.org/@tanbo/textbus/download/@tanbo/textbus-1.0.0-alpha.40.tgz#a75d16ae4807c5cf818208461875064e09f258c9"
+  integrity sha1-p10WrkgHxc+BgghGGHUGTgnyWMk=
   dependencies:
     "@tanbo/bezier" "1.0.0"
     "@tanbo/color" "^0.0.3"
