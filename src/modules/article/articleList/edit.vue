@@ -68,7 +68,7 @@
       </el-col>
     </el-row>
     <el-form-item prop="content" label="内容">
-      <x-editor v-model="formModel.content" />
+      <x-editor v-model="formModel.content" @change="_editorChange" />
     </el-form-item>
     <el-form-item prop="summary" label="摘要">
       <el-input
@@ -81,6 +81,7 @@
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="_save">保存</el-button>
+      <el-button @click="_preview">预览</el-button>
       <el-button @click="_close">返回</el-button>
     </el-form-item>
   </el-form>
@@ -97,6 +98,7 @@ export default {
     return {
       loading: false,
       file: null,
+      editorStyle: [],
       formModel: {
         title: '',
         content: '',
@@ -212,6 +214,15 @@ export default {
         })
         this._close()
       })
+    },
+
+    _editorChange({ styleSheets }) {
+      this.editorStyle = styleSheets
+    },
+
+    _preview() {
+      const newWindow = window.open('', '_blank')
+      newWindow.document.write(`<style>${this.editorStyle.join('')}</style><div style="width: 80%; margin: 0 auto;">${this.formModel.content}</div>`)
     },
 
     _reset () {

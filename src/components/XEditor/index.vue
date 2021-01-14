@@ -4,7 +4,16 @@
 
 <script>
 import 'reflect-metadata'
-import { createEditor } from '@tanbo/textbus'
+import {
+  createEditor,
+  imageCardComponentExample,
+  todoListComponentExample,
+  jumbotronComponentExample,
+  wordExplainComponentExample,
+  timelineComponentExample,
+  progressComponentExample,
+  stepsComponentExample
+} from '@tanbo/textbus'
 import '@tanbo/textbus/bundles/textbus.min.css'
 import API from '@/api'
 let editor = null
@@ -19,19 +28,27 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this._createEditor()
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     editor.destroy()
   },
 
   methods: {
-    async _createEditor () {
+    async _createEditor() {
       editor = createEditor(this.$refs.editor, {
-        componentLibrary: [],
-        uploader (type) {
+        componentLibrary: [
+          imageCardComponentExample,
+          todoListComponentExample,
+          jumbotronComponentExample,
+          wordExplainComponentExample,
+          timelineComponentExample,
+          progressComponentExample,
+          stepsComponentExample
+        ],
+        uploader(type) {
           if (type === 'image') {
             return new Promise((resolve, reject) => {
               const fileInput = document.createElement('input')
@@ -59,11 +76,14 @@ export default {
 
       // 监听value改变设置到编辑器中并取消监听
       const unwatch = this.$watch('value', value => {
-        editor.setContents(value).then(() => value !== '<p><br></p>' && unwatch())
+        editor
+          .setContents(value)
+          .then(() => value !== '<p><br></p>' && unwatch())
       })
 
       editor.onChange.subscribe(() => {
         this.$emit('input', editor.getContents().content)
+        this.$emit('change', editor.getContents())
       })
     }
   }
@@ -88,10 +108,6 @@ export default {
     &[title="字体大小"] {
       margin-right: 5px;
     }
-  }
-
-  .textbus-lib-switch {
-    display: none;
   }
 }
 </style>
