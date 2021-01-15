@@ -11,6 +11,7 @@
             <li
               v-for="(item, index) in settingList"
               :key="index"
+              v-role="index === 1 ? 'modify-password' : ''"
               :class="['item c-pointer', active === index && 'is-active']"
               @click="_toggle(index)"
             >
