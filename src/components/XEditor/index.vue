@@ -12,7 +12,47 @@ import {
   wordExplainComponentExample,
   timelineComponentExample,
   progressComponentExample,
-  stepsComponentExample
+  stepsComponentExample,
+  audioTool,
+  blockBackgroundTool,
+  blockquoteTool,
+  boldTool,
+  cleanTool,
+  preTool,
+  colorTool,
+  emojiTool,
+  fontFamilyTool,
+  fontSizeTool,
+  headingTool,
+  historyBackTool,
+  historyForwardTool,
+  imageTool,
+  italicTool,
+  letterSpacingTool,
+  lineHeightTool,
+  linkTool,
+  olTool,
+  strikeThroughTool,
+  subscriptTool,
+  superscriptTool,
+  tableEditTool,
+  tableAddTool,
+  textAlignTool,
+  textBackgroundTool,
+  textIndentTool,
+  ulTool,
+  underlineTool,
+  videoTool,
+  codeTool,
+  leftToRightTool,
+  rightToLeftTool,
+  tableAddParagraphTool,
+  tableRemoveTool,
+  tdBorderColorTool,
+  unlinkTool,
+  findTool,
+  insertObjectTool,
+  tableTool
 } from '@tanbo/textbus'
 import '@tanbo/textbus/bundles/textbus.min.css'
 import API from '@/api'
@@ -48,11 +88,37 @@ export default {
           progressComponentExample,
           stepsComponentExample
         ],
-        uploader() {
+        toolbar: [
+          [historyBackTool, historyForwardTool],
+          [insertObjectTool],
+          [headingTool],
+          [boldTool, italicTool, strikeThroughTool, underlineTool, subscriptTool, superscriptTool, lineHeightTool, letterSpacingTool],
+          [olTool, ulTool],
+          [fontSizeTool, textIndentTool],
+          [colorTool, textBackgroundTool],
+          [fontFamilyTool],
+          [linkTool, unlinkTool],
+          [imageTool, videoTool, audioTool, emojiTool],
+          [textAlignTool],
+          [tableTool],
+          [findTool],
+          [cleanTool]
+        ],
+        uploader(type) {
           return new Promise((resolve, reject) => {
             const fileInput = document.createElement('input')
             fileInput.setAttribute('type', 'file')
-            fileInput.setAttribute('accept', 'image/*,audio/*,video/*')
+            switch (type) {
+              case 'image':
+                fileInput.setAttribute('accept', 'image/*')
+                break
+              case 'video':
+                fileInput.setAttribute('accept', 'video/*')
+                break
+              case 'audio':
+                fileInput.setAttribute('accept', 'audio/*')
+                break
+            }
             fileInput.onchange = async event => {
               try {
                 const forData = new FormData()
@@ -74,9 +140,7 @@ export default {
 
       // 监听value改变设置到编辑器中并取消监听
       const unwatch = this.$watch('value', value => {
-        editor
-          .setContents(value)
-          .then(() => value !== '<p><br></p>' && unwatch())
+        editor.setContents(value).then(() => value !== '<p><br></p>' && unwatch())
       })
 
       editor.onChange.subscribe(() => {
@@ -95,14 +159,11 @@ export default {
     vertical-align: middle;
   }
 
-  .textbus-toolbar-action {
-    &[title="段落与标题"],
-    &[title="字体大小"],
-    &[title="字体"],
-    &[title="对齐方式"] {
-      border: 1px solid #dddee1;
-    }
+  .textbus-toolbar-group {
+    border: 1px solid #dddee1;
+  }
 
+  .textbus-toolbar-action {
     &[title="字体大小"] {
       margin-right: 5px;
     }

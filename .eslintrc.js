@@ -11,7 +11,11 @@ module.exports = {
   ],
   rules: {
     semi: ['error', 'never'],
-    indent: ['error', 2],
+    indent: [
+      'error',
+      2,
+      { SwitchCase: 1 }
+    ],
     'max-len': ['error', {
       code: 150,
       tabWidth: 2
