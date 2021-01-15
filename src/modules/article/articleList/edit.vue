@@ -5,7 +5,7 @@
         <el-form-item prop="title" label="标题">
           <el-input v-model="formModel.title"></el-input>
         </el-form-item>
-        <el-row>
+        <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item prop="categoryId" label="栏目">
               <el-select v-model="formModel.categoryId" clearable filterable class="w-100">
@@ -19,37 +19,27 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="status" label="状态">
-              <el-select v-model="formModel.status" clearable class="w-100">
+            <el-form-item>
+              <template #label>
+                标签 <el-tooltip content="标签添加请至标签列表处添加" placement="top"><i class="el-icon-info"></i></el-tooltip>
+              </template>
+              <el-select
+                v-model="formModel.tags"
+                multiple
+                class="w-100"
+                filterable
+                value-key="id"
+              >
                 <el-option
-                  v-for="item in statusList"
-                  :key="item.value"
-                  :value="item.value"
-                  :label="item.label"
-                ></el-option>
+                  v-for="item in tagsAllList"
+                  :key="item.id"
+                  :value="item"
+                  :label="item.name"
+                />
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item>
-          <template #label>
-            标签 <el-tooltip content="标签添加请至标签列表处添加" placement="top"><i class="el-icon-info"></i></el-tooltip>
-          </template>
-          <el-select
-            v-model="formModel.tags"
-            multiple
-            class="w-100"
-            filterable
-            value-key="id"
-          >
-            <el-option
-              v-for="item in tagsAllList"
-              :key="item.id"
-              :value="item"
-              :label="item.name"
-            />
-          </el-select>
-        </el-form-item>
       </el-col>
       <el-col :span="7">
         <el-form-item prop="thumbnail" label="缩略图">
@@ -80,7 +70,8 @@
       />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="_save">保存</el-button>
+      <el-button type="primary" @click="_save(1)">发布</el-button>
+      <el-button type="primary" @click="_save(0)">保存为草稿</el-button>
       <el-button @click="_preview">预览</el-button>
       <el-button @click="_close">返回</el-button>
     </el-form-item>
@@ -199,12 +190,13 @@ export default {
       this.formModel.thumbnail = data[0].url
     },
 
-    _save () {
+    _save (status) {
       this.$refs.form.validate(async isValid => {
         if (!isValid) return
         window.common.showLoading('保存中...')
         await API['article/article'].save({
           ...this.formModel,
+          status,
           tags: JSON.stringify(this.formModel.tags)
         })
         window.common.hideLoading()
