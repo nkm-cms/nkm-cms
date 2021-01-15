@@ -44,6 +44,7 @@ const APIS = {
   upload (data) {
     return request({
       url: '/upload',
+      timeout: 0,
       headers: {
         'Content-Type': 'multipart/form-data;'
       },
