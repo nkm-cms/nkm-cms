@@ -38,10 +38,14 @@ import {
   ulTool,
   underlineTool,
   videoTool,
+  leftToRightTool,
+  rightToLeftTool,
   unlinkTool,
   findTool,
   insertObjectTool,
-  tableTool
+  tableTool,
+  insertParagraphBeforeTool,
+  insertParagraphAfterTool
 } from '@tanbo/textbus'
 import '@tanbo/textbus/bundles/textbus.min.css'
 import API from '@/api'
@@ -79,19 +83,23 @@ export default {
         ],
         toolbar: [
           [historyBackTool, historyForwardTool],
+          [cleanTool],
           [insertObjectTool],
           [headingTool],
-          [boldTool, italicTool, strikeThroughTool, underlineTool, subscriptTool, superscriptTool, lineHeightTool, letterSpacingTool],
+          [boldTool, italicTool, strikeThroughTool, underlineTool, subscriptTool, superscriptTool],
+          [lineHeightTool],
+          [letterSpacingTool],
+          [leftToRightTool, rightToLeftTool],
+          [insertParagraphBeforeTool, insertParagraphAfterTool],
           [olTool, ulTool],
           [fontSizeTool, textIndentTool],
           [colorTool, textBackgroundTool],
           [fontFamilyTool],
+          [textAlignTool],
           [linkTool, unlinkTool],
           [imageTool, videoTool, audioTool, emojiTool],
-          [textAlignTool],
           [tableTool],
-          [findTool],
-          [cleanTool]
+          [findTool]
         ],
         uploader(type) {
           return new Promise((resolve, reject) => {

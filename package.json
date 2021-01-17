@@ -10,7 +10,7 @@
     "push": "git push && git push gitlab master"
   },
   "dependencies": {
-    "@tanbo/textbus": "^1.0.0-alpha.48",
+    "@tanbo/textbus": "^1.0.0-alpha.52",
     "@xuanmo/datejs": "^1.0.3",
     "axios": "^0.19.2",
     "crypto-js": "^4.0.0",
