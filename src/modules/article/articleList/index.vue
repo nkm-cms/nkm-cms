@@ -73,7 +73,7 @@ export default {
     _goEdit (data = {}) {
       this.$router.push({
         name: 'ArticleEdit',
-        params: {
+        query: {
           id: data.id
         }
       })

@@ -12,10 +12,6 @@ export default [
     meta: {
       title: '文章编辑'
     },
-    beforeEnter (to, from, next) {
-      if (to.params.id === ':id') to.params.id = ''
-      next()
-    },
     component: () => import(/* webpackChunkName: 'article' */ './edit')
   }
 ]

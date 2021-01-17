@@ -149,13 +149,13 @@ export default {
       await this.getCategoryList()
       await this.getTagsAllList()
       window.common.hideLoading()
-      this.$route.params.id && this._getDetail()
+      this.$route.query.id && this._getDetail()
     },
 
     async _getDetail () {
       try {
         window.common.showLoading('文章详情加载中...')
-        const { data } = await API['article/article'].getDetail(this.$route.params.id)
+        const { data } = await API['article/article'].getDetail(this.$route.query.id)
         window.common.hideLoading()
         this.formModel = Object.assign(this.formModel, data.data)
       } catch (err) {
