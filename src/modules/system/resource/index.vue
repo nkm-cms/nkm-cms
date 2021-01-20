@@ -6,6 +6,7 @@
         :data="tree"
         border
         row-key="id"
+        default-expand-all
       >
         <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column prop="code" label="编码" align="center"></el-table-column>
