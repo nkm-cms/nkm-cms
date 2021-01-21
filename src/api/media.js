@@ -7,5 +7,13 @@ export default {
       method: 'POST',
       data
     })
+  },
+
+  delFile(data) {
+    return request({
+      url: '/media/del',
+      method: 'POST',
+      data
+    })
   }
 }

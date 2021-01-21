@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <el-button type="primary" @click="_add">新增</el-button>
+    <el-button icon="el-icon-upload2" type="primary" @click="_add">上传文件</el-button>
+    <el-button @click="_add">新建文件夹</el-button>
 
     <div class="breadcrumb m-t-20px">
       <template>
@@ -28,7 +29,13 @@
         :title="item.filename"
         @click="_enterDirectory(item)"
       >
-        <el-image :src="item.preview" class="item--image" fit="contain" />
+        <el-image :src="item.preview" class="item--image" fit="contain">
+          <template #placeholder>
+            <div class="h-100 flex f-a-center f-j-justify">
+              <x-svg-icon icon="loading" />
+            </div>
+          </template>
+        </el-image>
         <p class="w-100 m-t-10px item--title">{{ item.filename }}</p>
       </li>
     </ul>
