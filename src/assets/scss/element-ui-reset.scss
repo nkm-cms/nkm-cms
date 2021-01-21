@@ -149,34 +149,6 @@ $--button-small-font-size: $font-size-base;
   }
 }
 
-.el-button {
-  font-weight: normal;
-
-  &.el-button--primary {
-    background-color: #ecf5ff;
-    border-color: #d9ecff;
-    color: #409eff;
-  }
-
-  &.el-button--success {
-    background-color: #f0f9eb;
-    border-color: #e1f3d8;
-    color: #67c23a;
-  }
-
-  &.el-button--warning {
-    background-color: #fdf6ec;
-    border-color: #faecd8;
-    color: #e6a23c;
-  }
-
-  &.el-button--danger {
-    background-color: #fef0f0;
-    border-color: #fde2e2;
-    color: #f56c6c;
-  }
-}
-
 .el-dialog__wrapper {
   .el-dialog {
     top: 50%;

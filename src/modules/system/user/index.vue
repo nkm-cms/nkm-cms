@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-button type="primary" icon="el-icon-plus" class="m-b-15px" @click="isShowRegistered = true">新增用户</el-button>
+    <el-button type="primary" class="m-b-15px" @click="isShowRegistered = true">新增用户</el-button>
     <registered v-model="isShowRegistered" @on-success="init" />
     <el-table :data="list" border class="w-100">
       <el-table-column type="index" label="序号" align="center"></el-table-column>
