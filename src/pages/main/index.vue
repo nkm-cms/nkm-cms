@@ -185,7 +185,8 @@ $color-main: #fff;
 .wrapper {
   padding: $content-padding;
   box-sizing: border-box;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: var(--color-background-content);
   border-radius: $border-radius;
 

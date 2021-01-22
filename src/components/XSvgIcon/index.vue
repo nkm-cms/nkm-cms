@@ -2,12 +2,7 @@
   <svg
     class="x-svg-icon"
     aria-hidden="true"
-    :style="{
-      ...customStyle,
-      width,
-      height,
-      verticalAlign: align
-    }"
+    :style="style"
   >
     <use :xlink:href="`#icon-${icon}`"></use>
   </svg>
@@ -33,9 +28,24 @@ export default {
       type: String,
       default: null
     },
+    size: {
+      type: String,
+      default: null
+    },
     align: {
       type: String,
       default: null
+    }
+  },
+
+  computed: {
+    style() {
+      return {
+        ...this.customStyle,
+        width: this.size || this.width,
+        height: this.size || this.height,
+        verticalAlign: this.align
+      }
     }
   }
 }
