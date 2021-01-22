@@ -25,7 +25,6 @@ import {
   historyForwardTool,
   imageTool,
   italicTool,
-  letterSpacingTool,
   lineHeightTool,
   linkTool,
   olTool,
@@ -38,8 +37,6 @@ import {
   ulTool,
   underlineTool,
   videoTool,
-  leftToRightTool,
-  rightToLeftTool,
   unlinkTool,
   findTool,
   insertObjectTool,
@@ -82,19 +79,15 @@ export default {
           stepsComponentExample
         ],
         toolbar: [
-          [historyBackTool, historyForwardTool],
-          [cleanTool],
+          [historyBackTool, historyForwardTool, cleanTool],
           [insertObjectTool],
-          [headingTool],
-          [boldTool, italicTool, strikeThroughTool, underlineTool, subscriptTool, superscriptTool],
+          [headingTool, fontSizeTool, fontFamilyTool],
+          [boldTool, italicTool, strikeThroughTool, underlineTool, colorTool, textBackgroundTool],
           [lineHeightTool],
-          [letterSpacingTool],
-          [leftToRightTool, rightToLeftTool],
           [insertParagraphBeforeTool, insertParagraphAfterTool],
           [olTool, ulTool],
-          [fontSizeTool, textIndentTool],
-          [colorTool, textBackgroundTool],
-          [fontFamilyTool],
+          [textIndentTool],
+          [subscriptTool, superscriptTool],
           [textAlignTool],
           [linkTool, unlinkTool],
           [imageTool, videoTool, audioTool, emojiTool],
@@ -157,7 +150,23 @@ export default {
   }
 
   .textbus-toolbar-group {
-    border: 1px solid #dddee1;
+    border-right: 1px solid #d0d0d0;
+    border-radius: 0;
+
+    &:hover {
+      border-color: transparent;
+    }
+
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  .textbus-toolbar-action {
+    &:hover {
+      box-shadow: none;
+      background: rgba(0, 0, 0, 0.04);
+    }
   }
 
   .textbus-toolbar-action {
