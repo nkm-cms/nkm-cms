@@ -3,7 +3,7 @@
     title="文件详情"
     direction="rtl"
     :visible="visible"
-    width="400px"
+    size="600px"
     @close="_close"
   >
     <div class="content">

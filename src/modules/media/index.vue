@@ -3,21 +3,28 @@
     <el-button icon="el-icon-upload2" type="primary" @click="_add">上传文件</el-button>
     <el-button @click="_add">新建文件夹</el-button>
 
-    <div class="breadcrumb m-t-20px">
-      <template>
-        <span v-if="isRoot">全部文件</span>
-        <template v-else>
-          <el-link type="primary" @click="_back">返回上一级</el-link>
-          <el-divider direction="vertical"></el-divider>
-        </template>
-      </template>
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index">
-          <el-link v-if="index !== breadcrumb.length - 1" type="primary" @click="_breadcrumbHandler(item, index)">{{ item }}</el-link>
-          <span v-else>{{ item }}</span>
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+    <el-row class="m-t-20px">
+      <el-col :span="18">
+        <div class="breadcrumb">
+          <template>
+            <span v-if="isRoot">全部文件</span>
+            <template v-else>
+              <el-link type="primary" @click="_back">返回上一级</el-link>
+              <el-divider direction="vertical"></el-divider>
+            </template>
+          </template>
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index">
+              <el-link v-if="index !== breadcrumb.length - 1" type="primary" @click="_breadcrumbHandler(item, index)">{{ item }}</el-link>
+              <span v-else class="color-sub-text">{{ item }}</span>
+            </el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+      </el-col>
+      <el-col :span="6" class="align-right">
+        <span class="color-sub-text">已加载全部，共{{ list.length }}个</span>
+      </el-col>
+    </el-row>
 
     <el-divider />
 
@@ -36,7 +43,7 @@
             </div>
           </template>
         </el-image>
-        <p class="w-100 m-t-10px item--title">{{ item.filename }}</p>
+        <p class="w-100 m-t-5px item--title">{{ item.filename }}</p>
       </li>
     </ul>
 
@@ -184,12 +191,13 @@ export default {
   }
 
   .item--image {
-    height: calc(120px - 30px);
+    height: calc(120px - 50px);
   }
 
   .item--title {
     @extend %ellipsis;
     font-size: 12px;
+    line-height: 1.5;
   }
 }
 </style>
