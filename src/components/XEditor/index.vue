@@ -150,12 +150,9 @@ export default {
   }
 
   .textbus-toolbar-group {
+    padding-right: 5px;
     border-right: 1px solid #d0d0d0;
     border-radius: 0;
-
-    &:hover {
-      border-color: transparent;
-    }
 
     &:last-child {
       border: 0;
