@@ -45,7 +45,7 @@ import {
   insertParagraphAfterTool
 } from '@tanbo/textbus'
 import '@tanbo/textbus/bundles/textbus.min.css'
-import uploadFile from '@/utils/upload'
+import uploadFile, { selectFileHandler } from '@/utils/upload'
 let editor = null
 
 export default {
@@ -96,30 +96,17 @@ export default {
         ],
         uploader(type) {
           return new Promise((resolve, reject) => {
-            const fileInput = document.createElement('input')
-            fileInput.setAttribute('type', 'file')
-            switch (type) {
-              case 'image':
-                fileInput.setAttribute('accept', 'image/*')
-                break
-              case 'video':
-                fileInput.setAttribute('accept', 'video/*')
-                break
-              case 'audio':
-                fileInput.setAttribute('accept', 'audio/*')
-                break
-            }
-            fileInput.onchange = async event => {
+            (async () => {
               try {
-                const { data } = await uploadFile(event.target.files, {
+                const file = await selectFileHandler(type)
+                const { data } = await uploadFile(file, {
                   type: 'editor'
                 })
                 resolve(data.data[0].url)
               } catch (err) {
                 reject()
               }
-            }
-            fileInput.click()
+            })()
           })
         }
       })
