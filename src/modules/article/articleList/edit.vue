@@ -80,6 +80,7 @@
 
 <script>
 import API from '@/api'
+import uploadFile from '@/utils/upload'
 import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
@@ -169,10 +170,9 @@ export default {
 
     async _upload () {
       try {
-        const formData = new FormData()
-        formData.append('file', this.file)
-        formData.append('type', 'editor')
-        let { data } = await API.upload(formData)
+        let { data } = await uploadFile([this.file], {
+          type: 'editor'
+        })
         this.file = null
         return Promise.resolve(data.data)
       } catch (err) {

@@ -45,7 +45,7 @@ import {
   insertParagraphAfterTool
 } from '@tanbo/textbus'
 import '@tanbo/textbus/bundles/textbus.min.css'
-import API from '@/api'
+import uploadFile from '@/utils/upload'
 let editor = null
 
 export default {
@@ -111,13 +111,9 @@ export default {
             }
             fileInput.onchange = async event => {
               try {
-                const forData = new FormData()
-                const files = event.target.files
-                forData.append('type', 'editor')
-                for (let i = 0; i < files.length; i++) {
-                  forData.append('files', files[i])
-                }
-                const { data } = await API.upload(forData)
+                const { data } = await uploadFile(event.target.files, {
+                  type: 'editor'
+                })
                 resolve(data.data[0].url)
               } catch (err) {
                 reject()
