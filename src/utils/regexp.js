@@ -45,3 +45,9 @@ export const matchFloatNumber = str => /^\d+(\.\d+)?$/.test(str)
  * @param {String} str
  */
 export const matchCode = str => /^[a-z\d-_]+$/gi.test(str)
+
+/**
+ * 校验目录
+ * @param {String} str
+ */
+export const matchDirectory = str => /^[a-z\d-_\u2E80-\u9FFF]+$/gi.test(str)

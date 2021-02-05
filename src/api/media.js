@@ -15,5 +15,13 @@ export default {
       method: 'POST',
       data
     })
+  },
+
+  createDirectory(data) {
+    return request({
+      url: '/media/create-directory',
+      method: 'POST',
+      data
+    })
   }
 }

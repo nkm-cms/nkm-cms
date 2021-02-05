@@ -1,7 +1,27 @@
 <template>
   <div class="container">
-    <el-button icon="el-icon-upload2" type="primary" @click="_add">上传文件</el-button>
-    <el-button @click="_add">新建文件夹</el-button>
+    <el-button
+      icon="el-icon-upload2"
+      type="primary"
+      class="m-r-15px"
+      :loading="uploadLoading"
+      @click="_uploadFile"
+    >
+      上传文件
+    </el-button>
+
+    <el-popover
+      v-model="showDirectoryInp"
+      width="200"
+    >
+      <p class="m-b-5px">目录名</p>
+      <el-input v-model="directoryName"></el-input>
+      <div class="align-right m-t-15px">
+        <el-button size="mini" type="text" @click="showDirectoryInp = false">取消</el-button>
+        <el-button :loading="createDirLoading" type="primary" size="mini" @click="_createDirectory">确定</el-button>
+      </div>
+      <el-button slot="reference">新建文件夹</el-button>
+    </el-popover>
 
     <el-row class="m-t-20px">
       <el-col :span="18">
@@ -55,6 +75,9 @@
 import { isEmpty } from '@/utils'
 import { mapState, mapActions } from 'vuex'
 import FileDetail from './components/FileDetail'
+import uploadFile, { selectFileHandler } from '@/utils/upload'
+import API from '@/api'
+import { matchDirectory } from '@/utils/regexp'
 
 export default {
   name: 'Media',
@@ -65,6 +88,12 @@ export default {
 
   data() {
     return {
+      uploadLoading: false,
+
+      showDirectoryInp: false,
+      createDirLoading: false,
+      directoryName: '',
+
       currentFile: {},
       showFileDetail: false,
     }
@@ -101,6 +130,7 @@ export default {
       }
     },
 
+    // 进入下一级目录
     _enterDirectory(data) {
       const { isDirectory, filename } = data
       if (isDirectory) {
@@ -117,6 +147,7 @@ export default {
       }
     },
 
+    // 面包屑导航目录切换
     _breadcrumbHandler(dir, index) {
       this.$router.replace({
         name: 'Media',
@@ -145,11 +176,45 @@ export default {
       this._getDirectoryList()
     },
 
-    _add() {
-      window.common.showMessage({
-        type: 'warning',
-        message: '功能正在开发中'
-      })
+    async _uploadFile() {
+      try {
+        const file = await selectFileHandler()
+        this.uploadLoading = true
+        await uploadFile(file, {
+          type: 'media',
+          path: this.breadcrumb.join('/') || '/'
+        })
+        this.uploadLoading = false
+        this._getDirectoryList()
+        window.common.showMessage({
+          type: 'success',
+          message: '上传成功'
+        })
+      } catch (err) {
+        this.uploadLoading = false
+      }
+    },
+
+    async _createDirectory() {
+      if (!matchDirectory(this.directoryName)) {
+        window.common.showMessage({
+          type: 'error',
+          message: '目录名只能输入中文、英文、数字、短横线（-）、下划线（_）'
+        })
+        return
+      }
+      try {
+        this.createDirLoading = true
+        await API.media.createDirectory({
+          path: this.breadcrumb.join('/') || '/',
+          name: this.directoryName
+        })
+        this.createDirLoading = false
+        this.directoryName = ''
+        this._getDirectoryList()
+      } catch (err) {
+        this.createDirLoading = false
+      }
     }
   }
 }
