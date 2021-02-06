@@ -8,14 +8,15 @@
         <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item prop="categoryId" label="栏目">
-              <el-select v-model="formModel.categoryId" clearable filterable class="w-100">
-                <el-option
-                  v-for="item in categoryList"
-                  :key="item.id"
-                  :value="item.id"
-                  :label="item.name"
-                ></el-option>
-              </el-select>
+              <x-select-tree
+                v-model="formModel.categoryId"
+                :data="categoryList"
+                clearable
+                class="w-100"
+                :tree-props="{
+                  label: 'name'
+                }"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -82,6 +83,7 @@
 import API from '@/api'
 import uploadFile from '@/utils/upload'
 import { mapState, mapActions, mapMutations } from 'vuex'
+import { isEmpty } from '@/utils'
 
 export default {
   name: 'Edit',
@@ -125,7 +127,7 @@ export default {
 
   computed: {
     ...mapState('article/category', {
-      categoryList: state => state.flatList
+      categoryList: state => isEmpty(state.tree) ? [] : state.tree[0].children
     }),
     ...mapState('article/tags', {
       tagsAllList: state => state.allList
