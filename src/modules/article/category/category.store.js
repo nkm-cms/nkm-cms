@@ -22,7 +22,13 @@ export default {
       try {
         let { data } = await API['article/category'].getList()
         commit(UPDATE_FLAT_LIST, data.data)
-        commit(UPDATE_TREE, sortTreeArr(deepTree(data.data)))
+        commit(UPDATE_TREE, [
+          {
+            id: 0,
+            name: '顶级栏目',
+            children: sortTreeArr(deepTree(data.data))
+          }
+        ])
         return Promise.resolve(data.data)
       } catch (e) {
         return Promise.reject(e)

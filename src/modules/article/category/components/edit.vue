@@ -16,10 +16,15 @@
         <el-input v-model="formModel.path"></el-input>
       </el-form-item>
       <el-form-item prop="parentId" label="父级栏目">
-        <el-select v-model="formModel.parentId" clearable class="w-100">
-          <el-option :value="0" label="顶级栏目"></el-option>
-          <el-option v-for="item in flatList" :key="item.id" :value="item.id" :label="item.name"></el-option>
-        </el-select>
+        <x-select-tree
+          v-model="formModel.parentId"
+          :data="tree"
+          clearable
+          class="w-100"
+          :tree-props="{
+            label: 'name'
+          }"
+        />
       </el-form-item>
       <el-form-item prop="sort" label="排序">
         <el-input v-model="formModel.sort"></el-input>
@@ -78,7 +83,7 @@ export default {
   },
 
   computed: {
-    ...mapState('article/category', ['flatList']),
+    ...mapState('article/category', ['tree']),
     dialogTitle () {
       const type = {
         add: '新增栏目',

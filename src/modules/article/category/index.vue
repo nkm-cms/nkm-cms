@@ -5,7 +5,7 @@
         <el-button type="primary" @click="_add">新增</el-button>
       </template>
 
-      <el-table :data="tree" border row-key="id">
+      <el-table :data="list" border row-key="id">
         <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="编码" prop="code"></el-table-column>
         <el-table-column label="路径" prop="path"></el-table-column>
@@ -48,6 +48,7 @@
 import API from '@/api'
 import { mapState, mapActions } from 'vuex'
 import Edit from './components/edit'
+import { isEmpty } from '@/utils'
 export default {
   name: 'Category',
 
@@ -64,7 +65,11 @@ export default {
   },
 
   computed: {
-    ...mapState('article/category', ['tree'])
+    ...mapState('article/category', ['tree']),
+
+    list() {
+      return isEmpty(this.tree) ? [] : this.tree[0].children
+    }
   },
 
   created () {
