@@ -2,7 +2,7 @@
   <div class="container">
     <x-table-container>
       <template #btnGroup>
-        <el-button type="primary" @click="_add">新增</el-button>
+        <el-button type="primary" @click="_add()">新增</el-button>
       </template>
 
       <el-table :data="list" border row-key="id">
@@ -25,8 +25,10 @@
         <el-table-column label="创建时间" align="center" prop="createTime" width="160">
           <template v-slot="{ row }">{{ row.createTime | formatDate }}</template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="120">
+        <el-table-column label="操作" align="center" width="180">
           <template v-slot="{ row }">
+            <el-link type="primary" size="mini" @click="_add(row)">添加</el-link>
+            <el-divider direction="vertical"></el-divider>
             <el-link type="primary" size="mini" @click="_edit(row)">编辑</el-link>
             <el-divider direction="vertical"></el-divider>
             <el-link type="primary" size="mini" @click="_del(row.id)">删除</el-link>
@@ -37,7 +39,7 @@
 
     <edit
       :visible.sync="showEdit"
-      :data="editData"
+      :data.sync="editData"
       :type.sync="editType"
       @success="init"
     />
@@ -85,7 +87,9 @@ export default {
       window.common.hideLoading()
     },
 
-    _add () {
+    _add (row = {}) {
+      this.editData.parentId = row.id
+      this.editData.path = row.path
       this.showEdit = true
     },
 

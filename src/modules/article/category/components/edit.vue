@@ -3,7 +3,7 @@
     :title="dialogTitle"
     :visible="visible"
     width="500px"
-    @close="__close"
+    @close="_close"
   >
     <el-form ref="form" :model="formModel" :rules="rules" label-width="80px">
       <el-form-item prop="name" label="名称">
@@ -50,6 +50,7 @@ import API from '@/api'
 import { mapState } from 'vuex'
 import editDiglog from '@/mixins/editDialog'
 import { matchCode } from '@/utils/regexp'
+import { isObject } from '@/utils'
 export default {
   name: 'Edit',
 
@@ -95,10 +96,8 @@ export default {
 
   watch: {
     visible (val) {
-      if (val) {
-        if (this.type === 'edit') {
-          this.formModel = Object.assign({}, this.formModel, this.data)
-        }
+      if (!isObject(val)) {
+        this.formModel = Object.assign({}, this.formModel, this.data)
       }
     }
   },
@@ -113,6 +112,11 @@ export default {
         this.__close()
         this.$emit('success')
       })
+    },
+
+    _close() {
+      this.$emit('update:data', {})
+      this.__close()
     },
 
     _reset () {
