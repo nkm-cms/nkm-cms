@@ -961,21 +961,21 @@
   resolved "https://registry.npm.taobao.org/@tanbo/css-themes/download/@tanbo/css-themes-0.0.1.tgz#b72927cfbf75cb68799e9ea20791cd14d37c01a3"
   integrity sha1-tyknz791y2h5np6iB5HNFNN8AaM=
 
-"@tanbo/di@0.0.19":
-  version "0.0.19"
-  resolved "https://registry.npm.taobao.org/@tanbo/di/download/@tanbo/di-0.0.19.tgz#b6b7ec0b38ac5394964ed196451f4fdaa857d0dd"
-  integrity sha1-trfsCzisU5SWTtGWRR9P2qhX0N0=
+"@tanbo/di@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.npm.taobao.org/@tanbo/di/download/@tanbo/di-0.0.24.tgz#113f22607f10fe4411053e4e4bda659953ad5338"
+  integrity sha1-ET8iYH8Q/kQRBT5OS9plmVOtUzg=
 
-"@tanbo/textbus@^1.0.0-alpha.102":
-  version "1.0.0-alpha.102"
-  resolved "https://registry.npm.taobao.org/@tanbo/textbus/download/@tanbo/textbus-1.0.0-alpha.102.tgz#a06343985bf30f7356ec99d49e50df144cbaedff"
-  integrity sha1-oGNDmFvzD3NW7JnUnlDfFEy67f8=
+"@tanbo/textbus@^1.0.0-alpha.127":
+  version "1.0.0-alpha.127"
+  resolved "https://registry.npm.taobao.org/@tanbo/textbus/download/@tanbo/textbus-1.0.0-alpha.127.tgz#202c315abc21b9c901e31f0c7f8ec6428fb4ab53"
+  integrity sha1-ICwxWrwhuckB4x8Mf47GQo+0q1M=
   dependencies:
     "@tanbo/bezier" "1.0.0"
     "@tanbo/color" "^0.0.3"
     "@tanbo/color-picker" "^0.0.21"
     "@tanbo/css-themes" "^0.0.1"
-    "@tanbo/di" "0.0.19"
+    "@tanbo/di" "0.0.24"
     pretty "^2.0.0"
     prismjs "^1.21.0"
     reflect-metadata "^0.1.13"
