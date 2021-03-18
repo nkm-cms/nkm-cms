@@ -1,5 +1,11 @@
 <template>
   <el-form ref="form" :model="formModel" :rules="rules" label-width="60px">
+    <el-alert
+      title="还请各位朋友体验的时候上传文件的时候不要上传违法的视频、音频、图片等，咱们要做一个好公民，谢谢。"
+      type="warning"
+      class="m-b-20px"
+      :closable="false"
+    />
     <el-row :gutter="20">
       <el-col :span="17">
         <el-form-item prop="title" label="标题">
