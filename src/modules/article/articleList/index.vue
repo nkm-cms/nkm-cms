@@ -6,11 +6,6 @@
       </template>
 
       <el-table :data="list" border>
-        <el-table-column label="缩略图" prop="thumbnail" width="100" align="center">
-          <template v-slot="{ row }">
-            <el-image v-if="row.thumbnail" :src="row.thumbnail"></el-image>
-          </template>
-        </el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
         <el-table-column label="状态" prop="status" width="100" align="center">
           <template v-slot="{ row }">
