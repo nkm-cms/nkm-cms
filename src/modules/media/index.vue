@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-alert
-      title="还请各位朋友体验的时候上传文件的时候不要上传违法的视频、音频、图片等，咱们要做一个好公民，谢谢。"
+      title="还请各位朋友体验的时候，上传文件不要上传违法的视频、音频、图片等，咱们要做一个好公民，谢谢。"
       type="warning"
       class="m-b-20px"
       :closable="false"
