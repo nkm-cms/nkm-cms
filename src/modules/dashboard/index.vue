@@ -2,7 +2,7 @@
   <div class="container">
     <el-card>
       <p>欢迎使用nkm-cms内容管理系统，觉得还可以赏个star吧🌝</p>
-      <a href="https://github.com/nkm-admin/nkm-cms" target="_blank">https://github.com/nkm-admin/nkm-cms</a>
+      <a href="https://github.com/nkm-cms/nkm-cms" target="_blank">https://github.com/nkm-cms/nkm-cms</a>
     </el-card>
 
     <el-row class="m-t-20px" :gutter="20">
