@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
-import { DEFAULT_INDEX_ROUTER, APP_TITLE } from '@/config'
+import { defaultIndexRouter, appTitle } from '@/settings'
 import { pathToRegexp } from 'path-to-regexp'
 
 Vue.use(Router)
@@ -51,11 +51,11 @@ const router = new Router({
 // 路由全局拦截-进入页面前
 router.beforeEach((to, from, next) => {
   // 设置页面标题
-  document.title = to.meta.title || APP_TITLE
+  document.title = to.meta.title || appTitle
 
   if (to.name === 'Login') {
     // 如果已经登录跳转至默认首页
-    return store.state.authen.token ? next({ name: DEFAULT_INDEX_ROUTER.name }) : next()
+    return store.state.authen.token ? next({ name: defaultIndexRouter.name }) : next()
   }
 
   if (!store.state.authen) {

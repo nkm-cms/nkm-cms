@@ -64,7 +64,6 @@
 import Menu from './components/Menu'
 import BreadCrumb from './components/BreadCrumb'
 import { mapState } from 'vuex'
-import { AVATAR } from '@/config'
 import API from '@/api'
 export default {
   name: 'Main',
@@ -75,7 +74,7 @@ export default {
   data () {
     return {
       isCollapse: false,
-      avatar: AVATAR,
+      avatar: require('@/assets/images/avatar/Fruit-1.png'),
       mode: 'day'
     }
   },

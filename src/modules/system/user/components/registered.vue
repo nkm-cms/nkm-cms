@@ -52,7 +52,7 @@ export default {
         loginName: '',
         displayName: '',
         password: '',
-        email: '',
+        email: 'me@example.com',
         avatar: ''
       },
       formRules: {

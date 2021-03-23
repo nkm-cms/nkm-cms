@@ -1,5 +1,8 @@
 require('colors')
+const { appTitle } = require('./src/settings')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
+
+const name = appTitle || 'nkm-cms'
 
 module.exports = {
   lintOnSave: true,
@@ -35,6 +38,7 @@ module.exports = {
   configureWebpack: () => {
     return {
       devtool: 'source-map',
+      name,
       plugins: [
         // new CompressionWebpackPlugin({
         //   filename: '[path].gz[query]',
