@@ -6,13 +6,7 @@
 import 'reflect-metadata'
 import {
   createEditor,
-  imageCardComponentExample,
-  todoListComponentExample,
-  jumbotronComponentExample,
-  wordExplainComponentExample,
-  timelineComponentExample,
-  progressComponentExample,
-  stepsComponentExample,
+
   audioTool,
   boldTool,
   cleanTool,
@@ -42,7 +36,20 @@ import {
   insertObjectTool,
   tableTool,
   insertParagraphBeforeTool,
-  insertParagraphAfterTool
+  insertParagraphAfterTool,
+
+  imageCardComponentExample,
+  todoListComponentExample,
+  jumbotronComponentExample,
+  wordExplainComponentExample,
+  timelineComponentExample,
+  progressComponentExample,
+  stepsComponentExample,
+  katexComponentExample,
+
+  TOOLS,
+  COMPONENT_CREATORS,
+  DEVICE_OPTIONS
 } from '@tanbo/textbus'
 import '@tanbo/textbus/bundles/textbus.min.css'
 import uploadFile, { selectFileHandler } from '@/utils/upload'
@@ -69,31 +76,67 @@ export default {
   methods: {
     async _createEditor() {
       editor = createEditor(this.$refs.editor, {
-        componentLibrary: [
-          imageCardComponentExample,
-          todoListComponentExample,
-          jumbotronComponentExample,
-          wordExplainComponentExample,
-          timelineComponentExample,
-          progressComponentExample,
-          stepsComponentExample
+        providers: [
+          {
+            provide: TOOLS,
+            useValue: [
+              [historyBackTool, historyForwardTool, cleanTool],
+              [insertObjectTool],
+              [headingTool, fontSizeTool, fontFamilyTool],
+              [boldTool, italicTool, strikeThroughTool, underlineTool, colorTool, textBackgroundTool],
+              [lineHeightTool],
+              [insertParagraphBeforeTool, insertParagraphAfterTool],
+              [olTool, ulTool],
+              [textIndentTool],
+              [subscriptTool, superscriptTool],
+              [textAlignTool],
+              [linkTool, unlinkTool],
+              [imageTool, videoTool, audioTool, emojiTool],
+              [tableTool],
+              [findTool]
+            ]
+          },
+          {
+            provide: DEVICE_OPTIONS,
+            useValue: [{
+              label: 'PC',
+              value: '100%',
+              default: true,
+            }, {
+              label: 'iPhone5/SE',
+              value: '320px'
+            }, {
+              label: 'iPhone6/7/8/X',
+              value: '375px'
+            }, {
+              label: 'iPhone6/7/8 Plus',
+              value: '414px'
+            }, {
+              label: 'iPad',
+              value: '768px'
+            }, {
+              label: 'iPad Pro',
+              value: '1024px'
+            }, {
+              label: 'A4',
+              value: '842px'
+            }]
+          },
+          {
+            provide: COMPONENT_CREATORS,
+            useValue: [
+              imageCardComponentExample,
+              todoListComponentExample,
+              jumbotronComponentExample,
+              wordExplainComponentExample,
+              timelineComponentExample,
+              progressComponentExample,
+              stepsComponentExample,
+              katexComponentExample
+            ]
+          }
         ],
-        toolbar: [
-          [historyBackTool, historyForwardTool, cleanTool],
-          [insertObjectTool],
-          [headingTool, fontSizeTool, fontFamilyTool],
-          [boldTool, italicTool, strikeThroughTool, underlineTool, colorTool, textBackgroundTool],
-          [lineHeightTool],
-          [insertParagraphBeforeTool, insertParagraphAfterTool],
-          [olTool, ulTool],
-          [textIndentTool],
-          [subscriptTool, superscriptTool],
-          [textAlignTool],
-          [linkTool, unlinkTool],
-          [imageTool, videoTool, audioTool, emojiTool],
-          [tableTool],
-          [findTool]
-        ],
+
         uploader(type) {
           return new Promise((resolve, reject) => {
             (async () => {
@@ -153,6 +196,10 @@ export default {
     &[title="字体大小"] {
       margin-right: 5px;
     }
+  }
+
+  .textbus-full-screen {
+    margin-right: 10px;
   }
 }
 </style>
