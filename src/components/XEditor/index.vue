@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import 'reflect-metadata'
 import {
   createEditor,
   imageCardComponentExample,
