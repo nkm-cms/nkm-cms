@@ -88,8 +88,8 @@ export default {
     },
 
     _add (row = {}) {
-      this.editData.parentId = row.id
-      this.editData.path = row.path
+      this.editData.parentId = row.id || 0
+      this.editData.path = row.path || ''
       this.showEdit = true
     },
 
