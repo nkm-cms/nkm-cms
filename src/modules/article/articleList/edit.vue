@@ -50,17 +50,14 @@
       </el-col>
       <el-col :span="7">
         <el-form-item prop="thumbnail" label="缩略图">
-          <el-upload
+          <div
+            v-loading="loading"
             class="uploader"
-            action=""
-            accept="image/*"
-            :show-file-list="false"
-            :on-change="_onChangeImage"
-            :http-request="_uploadThumbnail"
+            @click="_uploadThumbnail"
           >
-            <img v-if="formModel.thumbnail" :src="formModel.thumbnail" class="avatar">
-            <i v-else v-loading="loading" class="el-icon-plus uploader-icon"></i>
-          </el-upload>
+            <img v-if="formModel.thumbnail" :src="formModel.thumbnail" class="avatar" />
+            <i v-else class="el-icon-plus uploader-icon"></i>
+          </div>
         </el-form-item>
       </el-col>
     </el-row>
@@ -87,7 +84,7 @@
 
 <script>
 import API from '@/api'
-import uploadFile from '@/utils/upload'
+import uploadFile, { selectFileHandler } from '@/utils/upload'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { isEmpty } from '@/utils'
 
@@ -97,7 +94,6 @@ export default {
   data () {
     return {
       loading: false,
-      file: null,
       editorStyle: [],
       formModel: {
         title: '',
@@ -172,30 +168,22 @@ export default {
       }
     },
 
-    _onChangeImage ({ raw }) {
-      this.file = raw
-    },
-
-    async _upload () {
+    async _uploadThumbnail () {
+      this.loading = true
+      const file = await selectFileHandler('image')
       try {
-        let { data } = await uploadFile([this.file], {
+        const { data } = await uploadFile(file, {
           type: 'editor'
         })
-        this.file = null
-        return Promise.resolve(data.data)
+        this.loading = false
+        this.formModel.thumbnail = data.data[0].url
       } catch (err) {
+        this.loading = false
         window.common.showMessage({
           type: 'error',
           message: '图片上传失败'
         })
       }
-      this.loading = false
-    },
-
-    async _uploadThumbnail () {
-      this.loading = true
-      let data = await this._upload()
-      this.formModel.thumbnail = data[0].url
     },
 
     _save (status) {
@@ -243,34 +231,32 @@ export default {
 <style lang="scss" scoped>
 .uploader {
   $height: 120px;
-  /deep/ .el-upload {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: $height;
+  border: 1px dashed var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-theme;
+  }
+  .uploader-icon {
     width: 100%;
     height: $height;
-    border: 1px dashed var(--color-border);
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-
-    &:hover {
-      border-color: $color-theme;
-    }
-    .uploader-icon {
-      width: 100%;
-      height: $height;
-      font-size: 28px;
-      line-height: $height;
-      text-align: center;
-      color: inherit;
-    }
-    .avatar {
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-    }
+    font-size: 28px;
+    line-height: $height;
+    text-align: center;
+    color: inherit;
+  }
+  .avatar {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 .upload-images {

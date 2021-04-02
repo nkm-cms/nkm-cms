@@ -1,7 +1,12 @@
 import API from '@/api'
 import { isObject } from '.'
 
-export function selectFileHandler(type) {
+/**
+ * 选择文件
+ * @param type 文件类型
+ * @returns {Promise<FileList>}
+ */
+export function selectFileHandler(type = '') {
   return new Promise(resolve => {
     const fileInput = document.createElement('input')
     fileInput.setAttribute('type', 'file')
@@ -27,7 +32,7 @@ export function selectFileHandler(type) {
  * 上传文件
  * @param {FileList} files
  * @param {Object} data
- * @return {Promise}
+ * @return {Promise<Array>} 文件列表
  */
 export default function(files, data) {
   const formData = new FormData()
