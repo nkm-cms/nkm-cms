@@ -35,7 +35,7 @@
           <template>
             <span v-if="isRoot">全部文件</span>
             <template v-else>
-              <el-link type="primary" @click="_back">返回上一级</el-link>
+              <el-link type="primary" class="word-break--keep-all" @click="_back">返回上一级</el-link>
               <el-divider direction="vertical"></el-divider>
             </template>
           </template>
@@ -55,22 +55,28 @@
     <el-divider />
 
     <ul class="list-wrapper">
-      <li
+      <contextmenu
         v-for="(item, index) in list"
         :key="index"
-        class="item align-center"
-        :title="item.filename"
-        @click="_enterDirectory(item)"
+        :menus="menus"
+        tag="li"
+        @item-click="$event => hanldeContextmenu($event, item)"
       >
-        <el-image :src="item.preview" class="item--image" fit="contain">
-          <template #placeholder>
-            <div class="h-100 flex f-a-center f-j-justify">
-              <x-svg-icon icon="loading" />
-            </div>
-          </template>
-        </el-image>
-        <p class="w-100 m-t-5px item--title">{{ item.filename }}</p>
-      </li>
+        <div
+          class="item align-center"
+          :title="item.filename"
+          @click="_enterDirectory(item)"
+        >
+          <el-image :src="item.preview" class="item--image" fit="contain">
+            <template #placeholder>
+              <div class="h-100 flex f-a-center f-j-justify">
+                <x-svg-icon icon="loading" />
+              </div>
+            </template>
+          </el-image>
+          <p class="w-100 m-t-5px item--title">{{ item.filename }}</p>
+        </div>
+      </contextmenu>
     </ul>
 
     <file-detail :visible.sync="showFileDetail" :data.sync="currentFile" />
@@ -94,6 +100,11 @@ export default {
 
   data() {
     return {
+      menus: [
+        {
+          name: '删除'
+        }
+      ],
       uploadLoading: false,
 
       showDirectoryInp: false,
@@ -123,6 +134,26 @@ export default {
 
   methods: {
     ...mapActions('media', ['readDirectory']),
+
+    async hanldeContextmenu($event, { filename, isDirectory }) {
+      window.common.confirm({
+        title: '警告',
+        message: `确认删除${isDirectory ? '文件夹' : '文件'}吗？`,
+        type: 'warning',
+        callback: async action => {
+          if (action === 'confirm') {
+            await API.media.delFile({
+              path: [this.$route.query.path, filename].join('/')
+            })
+            window.common.showMessage({
+              type: 'success',
+              message: '删除成功'
+            })
+            this._getDirectoryList()
+          }
+        }
+      })
+    },
 
     async _getDirectoryList() {
       try {
@@ -164,7 +195,7 @@ export default {
       this._getDirectoryList()
     },
 
-    _findPath(index) {
+    _findPath(index = this.breadcrumb.length - 1) {
       const path = []
       for (let i = 0; i < index; i++) {
         path.push(this.breadcrumb[i])
@@ -227,6 +258,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.word-break--keep-all {
+  word-break: keep-all;
+}
 .breadcrumb {
   display: flex;
   align-items: center;
