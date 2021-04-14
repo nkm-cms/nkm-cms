@@ -53,7 +53,7 @@ nkm-admin-client
 ├─yarn.lock
 ├─src
 |  ├─App.vue
-|  ├─config.js // 项目主要默认配置文件
+|  ├─settings.js // 项目主要默认配置文件
 |  ├─main.js
 |  ├─utils // 公用工具类
 |  |   ├─const.js

@@ -218,7 +218,7 @@ export default {
                 message: '重置成功，密码为：nkm-123456',
                 type: 'success',
                 showClose: true,
-                duration: 0
+                duration: 5000
               })
             }).catch(() => window.common.hideLoading())
           }

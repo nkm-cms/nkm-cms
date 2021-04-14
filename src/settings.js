@@ -1,8 +1,11 @@
 module.exports = {
-  appTitle: 'nkm-cms',
+  // 用于加密安全key
+  SECRET_KEY: '@$!nkm-123456',
 
-  // 默认路由
-  defaultIndexRouter: {
+  // 默认首页路由
+  DEFAULT_INDEX_ROUTER: {
     name: 'Dashboard'
-  }
+  },
+
+  APP_TITLE: 'nkm-cms'
 }
