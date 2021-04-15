@@ -72,9 +72,9 @@ export default {
 
     async _getList(isReset) {
       isReset && this.UPDATE_CURRENT_PAGE(1)
-      window.common.showLoading('列表加载中...')
+      this.$_D_common.showLoading('列表加载中...')
       await this.getList()
-      window.common.hideLoading()
+      this.$_D_common.hideLoading()
     },
 
     _add() {
@@ -88,16 +88,16 @@ export default {
     },
 
     _del(id) {
-      window.common.confirm({
+      this.$_D_common.confirm({
         title: '警告',
         message: '确认删除该标签吗？',
         type: 'warning',
         callback: async action => {
           if (action === 'confirm') {
-            window.common.showLoading('删除中...')
+            this.$_D_common.showLoading('删除中...')
             await API['article/tags'].del({ id })
-            window.common.hideLoading()
-            window.common.showMessage({
+            this.$_D_common.hideLoading()
+            this.$_D_common.showMessage({
               type: 'success',
               message: '删除成功'
             })

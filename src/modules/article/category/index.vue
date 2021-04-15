@@ -82,9 +82,9 @@ export default {
     ...mapActions('article/category', ['getList']),
 
     async init () {
-      window.common.showLoading()
+      this.$_D_common.showLoading()
       await this.getList()
-      window.common.hideLoading()
+      this.$_D_common.hideLoading()
     },
 
     _add (row = {}) {
@@ -100,15 +100,15 @@ export default {
     },
 
     _del (id) {
-      window.common.confirm({
+      this.$_D_common.confirm({
         title: '警告',
         message: '确认删除该栏目吗？',
         type: 'warning',
         callback: async action => {
           if (action === 'confirm') {
-            window.common.showLoading('删除中...')
+            this.$_D_common.showLoading('删除中...')
             await API['article/category'].del({ id })
-            window.common.hideLoading()
+            this.$_D_common.hideLoading()
             this.init()
           }
         }

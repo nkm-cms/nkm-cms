@@ -106,9 +106,9 @@ export default {
     _save () {
       this.$refs.form.validate(async isValid => {
         if (!isValid) return
-        window.common.showLoading('保存中...')
+        this.$_D_common.showLoading('保存中...')
         await API['article/category'].save(this.formModel)
-        window.common.hideLoading()
+        this.$_D_common.hideLoading()
         this.__close()
         this.$emit('success')
       })
