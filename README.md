@@ -177,7 +177,7 @@ nkm-admin-client
 * vue.config.js：项目配置文件，具体使用说明可查看[https://cli.vuejs.org/zh/config/#vue-config-js](https://cli.vuejs.org/zh/config/#vue-config-js)
 
 ## 参考指南
-* [vuejs风格指南查看](https://cn.vuejs.org/v2/style-guide/)
-* [eslint风格指南](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md)
-* [css风格指南查看](https://codeguide.bootcss.com/#css)
+* [Vuejs风格指南查看](https://cn.vuejs.org/v2/style-guide/)
+* [Eslint风格指南](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md)
+* [CSS风格指南查看](https://codeguide.bootcss.com/#css)
 * [Element-UI官网](http://element-cn.eleme.io/#/zh-CN/component/installation)
