@@ -27,13 +27,13 @@ export default {
   actions: {
     async getList ({ commit, state }) {
       try {
-        let { data } = await API['article/article'].getList({
+        let { data, count } = await API['article/article'].getList({
           page: state.currentPage,
           limit: DEFAULT_PAGE_LIMIT
         })
-        commit(UPDATE_LIST, data.data)
-        commit(UPDATE_TOTAL, data.count)
-        return Promise.resolve(data.data)
+        commit(UPDATE_LIST, data)
+        commit(UPDATE_TOTAL, count)
+        return Promise.resolve(data)
       } catch (e) {
         return Promise.reject(e)
       }

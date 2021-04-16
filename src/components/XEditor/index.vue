@@ -143,7 +143,7 @@ export default {
                 const { data } = await uploadFile(file, {
                   type: 'editor'
                 })
-                resolve(data.data[0].url)
+                resolve(data[0].url)
               } catch (err) {
                 reject()
               }

@@ -162,7 +162,7 @@ export default {
         this.$_D_common.showLoading('文章详情加载中...')
         const { data } = await API['article/article'].getDetail(this.$route.query.id)
         this.$_D_common.hideLoading()
-        this.formModel = Object.assign(this.formModel, data.data)
+        this.formModel = Object.assign(this.formModel, data)
       } catch (err) {
         this.$_D_common.hideLoading()
       }
@@ -176,7 +176,7 @@ export default {
           type: 'editor'
         })
         this.loading = false
-        this.formModel.thumbnail = data.data[0].url
+        this.formModel.thumbnail = data[0].url
       } catch (err) {
         this.loading = false
         this.$_D_common.showMessage({

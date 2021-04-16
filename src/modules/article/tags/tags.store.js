@@ -31,12 +31,12 @@ export default {
   actions: {
     async getList ({ commit, state }) {
       try {
-        const { data } = await API['article/tags'].getList({
+        const { data, count } = await API['article/tags'].getList({
           page: state.currentPage,
           limit: DEFAULT_PAGE_LIMIT
         })
-        commit(UPDATE_LIST, data.data)
-        commit(UPDATE_COUNT, data.count)
+        commit(UPDATE_LIST, data)
+        commit(UPDATE_COUNT, count)
         return Promise.resolve(data)
       } catch (err) {
         return Promise.reject(err)
@@ -50,7 +50,7 @@ export default {
           limit: DEFAULT_PAGE_LIMIT,
           all: 1
         })
-        commit(UPDATE_ALL_LIST, data.data)
+        commit(UPDATE_ALL_LIST, data)
         return Promise.resolve(data)
       } catch (err) {
         return Promise.reject(err)

@@ -21,15 +21,15 @@ export default {
     async getList ({ commit }) {
       try {
         let { data } = await API['article/category'].getList()
-        commit(UPDATE_FLAT_LIST, data.data)
+        commit(UPDATE_FLAT_LIST, data)
         commit(UPDATE_TREE, [
           {
             id: 0,
             name: '顶级栏目',
-            children: sortTreeArr(deepTree(data.data))
+            children: sortTreeArr(deepTree(data))
           }
         ])
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (e) {
         return Promise.reject(e)
       }

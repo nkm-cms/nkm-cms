@@ -22,7 +22,7 @@ export default {
     async readDirectory ({ commit }, reqData) {
       try {
         const { data } = await API.media.readDirectory(reqData)
-        data.data.map(item => {
+        data.map(item => {
           item.url = `${location.origin}${item.url}`
           if (item.isDirectory) {
             item.preview = images.folder
@@ -43,7 +43,7 @@ export default {
           }
           return item
         })
-        commit(UPDATE_DIRECTORY_LIST, data.data)
+        commit(UPDATE_DIRECTORY_LIST, data)
         return Promise.resolve(data)
       } catch (err) {
         return Promise.reject(err)
