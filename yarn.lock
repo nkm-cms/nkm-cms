@@ -1598,6 +1598,15 @@
   resolved "https://registry.npm.taobao.org/@xtuc/long/download/@xtuc/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha1-0pHGpOl5ibXGHZrPOWrk/hM6cY0=
 
+"@xuanmo/d-table@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.nlark.com/@xuanmo/d-table/download/@xuanmo/d-table-0.0.7.tgz#02c202d8531a4e6e0eedef4daa13b3910bedbb00"
+  integrity sha1-AsIC2FMaTm4O7e9NqhOzkQvtuwA=
+  dependencies:
+    core-js "^3.6.5"
+    element-ui "^2.15.1"
+    vue "^2.6.11"
+
 "@xuanmo/datejs@^1.0.3":
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/@xuanmo/datejs/download/@xuanmo/datejs-1.0.3.tgz#5cddcfbd9ae3892751cf011b7c2ea546aa1d861c"
@@ -3702,6 +3711,18 @@ element-ui@^2.13.2:
   version "2.14.1"
   resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.14.1.tgz#8b5745c7366c1c1a603bb6c021286ea7187e2aa2"
   integrity sha1-i1dFxzZsHBpgO7bAIShupxh+KqI=
+  dependencies:
+    async-validator "~1.8.1"
+    babel-helper-vue-jsx-merge-props "^2.0.0"
+    deepmerge "^1.2.0"
+    normalize-wheel "^1.0.1"
+    resize-observer-polyfill "^1.5.0"
+    throttle-debounce "^1.0.1"
+
+element-ui@^2.15.1:
+  version "2.15.1"
+  resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.15.1.tgz#ada00aa6e32c02774a2e77563dd84668f813cdff"
+  integrity sha1-raAKpuMsAndKLndWPdhGaPgTzf8=
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -9786,7 +9807,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
-vue@^2.6.12:
+vue@^2.6.11, vue@^2.6.12:
   version "2.6.12"
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha1-9evU+mvShpQD4pqJau1JBEVskSM=

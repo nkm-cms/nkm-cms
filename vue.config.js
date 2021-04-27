@@ -63,5 +63,8 @@ module.exports = {
         extract: false,
         symbolId: 'icon-[name]'
       })
-  }
+  },
+  transpileDependencies: [
+    '@xuanmo/d-table'
+  ]
 }

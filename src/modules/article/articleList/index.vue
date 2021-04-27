@@ -5,64 +5,47 @@
         <el-button type="primary" @click="_goEdit">新增</el-button>
       </template>
 
-      <el-table :data="list" border>
-        <el-table-column label="标题" prop="title"></el-table-column>
-        <el-table-column label="状态" prop="status" width="100" align="center">
-          <template v-slot="{ row }">
-            <x-dot-tag v-if="row.status === 0">草稿</x-dot-tag>
-            <x-dot-tag v-else-if="row.status === 1" type="success">已发布</x-dot-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="栏目" prop="categoryName" width="130" align="center"></el-table-column>
-        <el-table-column label="发布人" prop="userDisplayName" width="130" align="center"></el-table-column>
-        <el-table-column label="创建时间" align="center" prop="createTime" width="160">
-          <template v-slot="{ row }">{{ row.createTime | formatDate }}</template>
-        </el-table-column>
-        <el-table-column label="操作" align="center" width="120">
-          <template v-slot="{ row }">
-            <el-link type="primary" size="mini" @click="_edit(row)">编辑</el-link>
-            <el-divider direction="vertical"></el-divider>
-            <el-link type="primary" size="mini" @click="_del(row.id)">删除</el-link>
-          </template>
-        </el-table-column>
-      </el-table>
-
-      <template #pagination>
-        <x-pagination
-          :total="total"
-          :current-page="currentPage"
-          :page-size="limit"
-          @current-change="_pageChange"
-        />
-      </template>
+      <d-table
+        :request-method="getTableData"
+      >
+        <template v-slot:status="{ row }">
+          <x-dot-tag v-if="row.status === 0">草稿</x-dot-tag>
+          <x-dot-tag v-else-if="row.status === 1" type="success">已发布</x-dot-tag>
+        </template>
+        <template v-slot:createTime="{ row }">{{ row.createTime | formatDate }}</template>
+        <template v-slot:operation="{ row }">
+          <el-link type="primary" size="mini" @click="_edit(row)">编辑</el-link>
+          <el-divider direction="vertical"></el-divider>
+          <el-link type="primary" size="mini" @click="_del(row.id)">删除</el-link>
+        </template>
+      </d-table>
     </x-table-container>
   </div>
 </template>
 
 <script>
 import API from '@/api'
-import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'Article',
-  computed: {
-    ...mapState('article/articleList', ['list', 'total', 'limit', 'currentPage'])
-  },
-  created () {
-    this.init()
-  },
   methods: {
-    ...mapMutations('article/articleList', ['UPDATE_CURRENT_PAGE']),
-    ...mapActions('article/articleList', ['getList']),
-
-    async init () {
+    async getTableData(params) {
       this.$_D_common.showLoading()
-      await this.getList()
+      const { data, count } = await API['article/article'].getList({
+        ...params
+      })
       this.$_D_common.hideLoading()
-    },
-
-    _pageChange (page) {
-      this.UPDATE_CURRENT_PAGE(page)
-      this.init()
+      return {
+        header: [
+          { name: '标题', column: 'title' },
+          { name: '状态', column: 'status', width: 100, align: 'center' },
+          { name: '栏目', column: 'categoryName', width: 130, align: 'center' },
+          { name: '发布人', column: 'userDisplayName', width: 130, align: 'center' },
+          { name: '创建时间', column: 'createTime', width: 160, align: 'center' },
+          { name: '操作', column: 'operation', width: 120 },
+        ],
+        data,
+        count
+      }
     },
 
     _goEdit (data = {}) {
@@ -96,5 +79,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
