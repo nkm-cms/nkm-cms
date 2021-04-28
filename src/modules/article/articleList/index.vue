@@ -29,11 +29,11 @@ export default {
   name: 'Article',
   methods: {
     async getTableData(params) {
-      this.$_D_common.showLoading()
+      this.$_Dcommon.showLoading()
       const { data, count } = await API['article/article'].getList({
         ...params
       })
-      this.$_D_common.hideLoading()
+      this.$_Dcommon.hideLoading()
       return {
         header: [
           { name: '标题', column: 'title' },
@@ -62,15 +62,15 @@ export default {
     },
 
     _del (id) {
-      this.$_D_common.confirm({
+      this.$_Dcommon.confirm({
         title: '警告',
         message: '确认删除该文章吗？',
         type: 'warning',
         callback: async action => {
           if (action === 'confirm') {
-            this.$_D_common.showLoading('删除中...')
+            this.$_Dcommon.showLoading('删除中...')
             await API['article/article'].del({ id })
-            this.$_D_common.hideLoading()
+            this.$_Dcommon.hideLoading()
             this.init()
           }
         }

@@ -72,10 +72,10 @@ export default {
     _save() {
       this.$refs.form.validate(async valid => {
         if (valid) {
-          this.$_D_common.showLoading('保存中...')
+          this.$_Dcommon.showLoading('保存中...')
           await API['article/tags'].save(this.formModel)
-          this.$_D_common.hideLoading()
-          this.$_D_common.showMessage({
+          this.$_Dcommon.hideLoading()
+          this.$_Dcommon.showMessage({
             type: 'success',
             message: '保存成功'
           })

@@ -136,7 +136,7 @@ export default {
     ...mapActions('media', ['readDirectory']),
 
     async hanldeContextmenu($event, { filename, isDirectory }) {
-      this.$_D_common.confirm({
+      this.$_Dcommon.confirm({
         title: '警告',
         message: `确认删除${isDirectory ? '文件夹' : '文件'}吗？`,
         type: 'warning',
@@ -145,7 +145,7 @@ export default {
             await API.media.delFile({
               path: [this.$route.query.path, filename].join('/')
             })
-            this.$_D_common.showMessage({
+            this.$_Dcommon.showMessage({
               type: 'success',
               message: '删除成功'
             })
@@ -157,13 +157,13 @@ export default {
 
     async _getDirectoryList() {
       try {
-        this.$_D_common.showLoading('加载中...')
+        this.$_Dcommon.showLoading('加载中...')
         await this.readDirectory({
           path: this.$route.query.path
         })
-        this.$_D_common.hideLoading()
+        this.$_Dcommon.hideLoading()
       } catch(err) {
-        this.$_D_common.hideLoading()
+        this.$_Dcommon.hideLoading()
       }
     },
 
@@ -223,7 +223,7 @@ export default {
         })
         this.uploadLoading = false
         this._getDirectoryList()
-        this.$_D_common.showMessage({
+        this.$_Dcommon.showMessage({
           type: 'success',
           message: '上传成功'
         })
@@ -234,7 +234,7 @@ export default {
 
     async _createDirectory() {
       if (!matchDirectory(this.directoryName)) {
-        this.$_D_common.showMessage({
+        this.$_Dcommon.showMessage({
           type: 'error',
           message: '目录名只能输入中文、英文、数字、短横线（-）、下划线（_）'
         })

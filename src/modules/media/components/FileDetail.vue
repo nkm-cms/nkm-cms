@@ -111,7 +111,7 @@ export default {
     _copyUrl() {
       this.$refs.copyInput.select()
       const copyed = document.execCommand('Copy')
-      this.$_D_common.showMessage({
+      this.$_Dcommon.showMessage({
         type: copyed ? 'success' : 'error',
         message: copyed ? '复制成功' : '复制失败'
       })
@@ -125,7 +125,7 @@ export default {
         })
         this.delLoading = false
         this.showDelPopver = false
-        this.$_D_common.showMessage({
+        this.$_Dcommon.showMessage({
           type: 'success',
           message: '删除成功'
         })

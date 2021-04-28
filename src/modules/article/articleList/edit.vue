@@ -150,21 +150,21 @@ export default {
     }),
 
     async _getCategoryList () {
-      this.$_D_common.showLoading('加载中...')
+      this.$_Dcommon.showLoading('加载中...')
       await this.getCategoryList()
       await this.getTagsAllList()
-      this.$_D_common.hideLoading()
+      this.$_Dcommon.hideLoading()
       this.$route.query.id && this._getDetail()
     },
 
     async _getDetail () {
       try {
-        this.$_D_common.showLoading('文章详情加载中...')
+        this.$_Dcommon.showLoading('文章详情加载中...')
         const { data } = await API['article/article'].getDetail(this.$route.query.id)
-        this.$_D_common.hideLoading()
+        this.$_Dcommon.hideLoading()
         this.formModel = Object.assign(this.formModel, data)
       } catch (err) {
-        this.$_D_common.hideLoading()
+        this.$_Dcommon.hideLoading()
       }
     },
 
@@ -179,7 +179,7 @@ export default {
         this.formModel.thumbnail = data[0].url
       } catch (err) {
         this.loading = false
-        this.$_D_common.showMessage({
+        this.$_Dcommon.showMessage({
           type: 'error',
           message: '图片上传失败'
         })
@@ -189,14 +189,14 @@ export default {
     _save (status) {
       this.$refs.form.validate(async isValid => {
         if (!isValid) return
-        this.$_D_common.showLoading('保存中...')
+        this.$_Dcommon.showLoading('保存中...')
         await API['article/article'].save({
           ...this.formModel,
           status,
           tags: JSON.stringify(this.formModel.tags)
         })
-        this.$_D_common.hideLoading()
-        this.$_D_common.showMessage({
+        this.$_Dcommon.hideLoading()
+        this.$_Dcommon.showMessage({
           type: 'success',
           message: '文章保存成功'
         })
