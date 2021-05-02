@@ -4,36 +4,21 @@
       <el-button type="primary" @click="_add">新增</el-button>
     </template>
 
-    <el-table :data="list" border>
-      <el-table-column prop="name" label="名称"></el-table-column>
-      <el-table-column prop="code" label="编码"></el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="160">
-        <template v-slot="{ row }">{{ row.createTime | formatDate }}</template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" width="120">
-        <template v-slot="{ row }">
-          <el-link type="primary" size="mini" @click="_edit(row)">编辑</el-link>
-          <el-divider direction="vertical"></el-divider>
-          <el-link type="primary" size="mini" @click="_del(row.id)">删除</el-link>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <template #pagination>
-      <x-pagination
-        :total="total"
-        :current-page="currentPage"
-        :page-size="limit"
-        @current-change="_pageChange"
-      />
-    </template>
+    <d-table ref="table" :request-method="_getList">
+      <template v-slot:createTime="{ row }">{{ row.createTime | formatDate }}</template>
+      <template v-slot:operation="{ row }">
+        <el-link type="primary" size="mini" @click="_edit(row)">编辑</el-link>
+        <el-divider direction="vertical"></el-divider>
+        <el-link type="primary" size="mini" @click="_del(row.id)">删除</el-link>
+      </template>
+    </d-table>
 
     <tags-edit
       :visible.sync="showEdit"
       :data="editData"
       :type.sync="editType"
       @close="_closeEdit"
-      @success="_getList(true)"
+      @success="reload"
     />
   </x-table-container>
 </template>
@@ -41,7 +26,7 @@
 <script>
 import API from '@/api'
 import TagsEdit from './components/edit'
-import { mapState, mapMutations, mapActions } from 'vuex'
+
 export default {
   name: 'Tags',
 
@@ -58,23 +43,25 @@ export default {
     }
   },
 
-  computed: {
-    ...mapState('article/tags', ['list', 'total', 'currentPage', 'limit'])
-  },
-
-  created() {
-    this._getList(true)
-  },
-
   methods: {
-    ...mapMutations('article/tags', ['UPDATE_CURRENT_PAGE']),
-    ...mapActions('article/tags', ['getList']),
-
-    async _getList(isReset) {
-      isReset && this.UPDATE_CURRENT_PAGE(1)
+    async _getList(params) {
       this.$_Dcommon.showLoading('列表加载中...')
-      await this.getList()
+      const { data, count } = await API['article/tags'].getList(params)
       this.$_Dcommon.hideLoading()
+      return {
+        data,
+        count,
+        header: [
+          { name: '名称', column: 'name' },
+          { name: '编码', column: 'code' },
+          { name: '创建时间', align: 'center', column: 'createTime', width: '160' },
+          { name: '操作', column: 'operation', align: 'center', width: '120' }
+        ]
+      }
+    },
+
+    reload() {
+      this.$refs.table.reload()
     },
 
     _add() {
@@ -101,7 +88,7 @@ export default {
               type: 'success',
               message: '删除成功'
             })
-            this._getList(true)
+            this._getList()
           }
         }
       })
@@ -109,14 +96,7 @@ export default {
 
     _closeEdit() {
       this.editData = {}
-    },
-
-    _pageChange(page) {
-      this.UPDATE_CURRENT_PAGE(page)
-      this._getList()
     }
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
