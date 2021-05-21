@@ -26,7 +26,7 @@
         <el-collapse v-model="activeCollapse">
           <el-collapse-item title="文章状态" name="1">
             <el-checkbox v-model="formModel.top" :true-label="1" :false-label="0">是否置顶</el-checkbox>
-            <el-checkbox v-model="formModel.status" :true-label="1" :false-label="0">保存草稿</el-checkbox>
+            <el-checkbox v-model="formModel.status" :true-label="0" :false-label="1">保存草稿</el-checkbox>
           </el-collapse-item>
           <el-collapse-item title="分类" name="2">
             <el-form-item prop="categoryId" label-width="0">
