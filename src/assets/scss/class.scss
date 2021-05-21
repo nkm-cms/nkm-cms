@@ -8,33 +8,29 @@
   min-height: 100%;
 }
 
-// 外边距
+// 内外边距；使用：m-t-5px 或 p-t-5px
 $margin: (
-  top: 5 10 15 20 30,
-  right: 5 10 15 20 30,
-  bottom: 5 10 15 20 30,
-  left: 5 10 15 20 30
+  top: 5 10 15 20,
+  right: 5 10 15 20,
+  bottom: 5 10 15 20,
+  left: 5 10 15 20
 );
+$marginDirection: margin, padding;
 @each $direction, $value in $margin {
   @each $num in $value {
-    .m-#{str-slice($direction, 1, 1)}-#{$num}px {
-      margin-#{$direction}: #{$num}px;
+    @each $d in $marginDirection {
+      .#{str-slice($d, 1, 1)}-#{str-slice($direction, 1, 1)}-#{$num}px {
+        #{$d}-#{$direction}: #{$num}px;
+      }
     }
   }
 }
 
-// 内边距
-$margin: (
-  top: 5 10 15 20 30,
-  right: 5 10 15 20 30,
-  bottom: 5 10 15 20 30,
-  left: 5 10 15 20 30
-);
-@each $direction, $value in $margin {
-  @each $num in $value {
-    .p-#{str-slice($direction, 1, 1)}-#{$num}px {
-      padding-#{$direction}: #{$num}px;
-    }
+// 文字对齐
+$align: left, center, right, justify;
+@each $str in $align {
+  .align-#{$str} {
+    text-align: $str;
   }
 }
 
@@ -52,13 +48,6 @@ $margin: (
   clear: both;
 }
 
-// 文字对齐
-$align: left, center, right, justify;
-@each $str in $align {
-  .align-#{$str} {
-    text-align: $str;
-  }
-}
 .v-middle {
   vertical-align: middle;
 }
@@ -94,6 +83,9 @@ $align: left, center, right, justify;
   cursor: pointer;
 }
 
+.f-s-12px {
+  font-size: 12px;
+}
 .f-s-18px {
   font-size: 18px;
 }

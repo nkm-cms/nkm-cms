@@ -52,7 +52,6 @@ import {
 } from '@tanbo/textbus'
 import '@tanbo/textbus/bundles/textbus.min.css'
 import uploadFile, { selectFileHandler } from '@/utils/upload'
-let editor = null
 
 export default {
   name: 'XEditor',
@@ -64,17 +63,23 @@ export default {
     }
   },
 
+  data() {
+    return {
+      editor: null
+    }
+  },
+
   mounted() {
     this._createEditor()
   },
 
   beforeDestroy() {
-    editor.destroy()
+    this.editor.destroy()
   },
 
   methods: {
     async _createEditor() {
-      editor = createEditor(this.$refs.editor, {
+      this.editor = createEditor(this.$refs.editor, {
         providers: [
           {
             provide: TOOLS,
@@ -154,12 +159,12 @@ export default {
 
       // 监听value改变设置到编辑器中并取消监听
       const unwatch = this.$watch('value', value => {
-        editor.setContents(value).then(() => value !== '<p><br></p>' && unwatch())
+        this.editor.setContents(value).then(() => value !== '<p><br></p>' && unwatch())
       })
 
-      editor.onChange.subscribe(() => {
-        this.$emit('input', editor.getContents().content)
-        this.$emit('change', editor.getContents())
+      this.editor.onChange.subscribe(() => {
+        this.$emit('input', this.editor.getContents().content)
+        this.$emit('change', this.editor.getContents())
       })
     }
   }

@@ -38,10 +38,11 @@ export default {
         header: [
           { name: '标题', column: 'title' },
           { name: '状态', column: 'status', width: 100, align: 'center' },
+          { name: '置顶', column: 'top', width: 80, align: 'center', formatter: (row, column, cellValue) => cellValue ? '是' : '否' },
           { name: '栏目', column: 'categoryName', width: 130, align: 'center' },
           { name: '发布人', column: 'userDisplayName', width: 130, align: 'center' },
           { name: '创建时间', column: 'createTime', width: 160, align: 'center' },
-          { name: '操作', column: 'operation', width: 120 },
+          { name: '操作', column: 'operation', width: 120, align: 'center' },
         ],
         data,
         count

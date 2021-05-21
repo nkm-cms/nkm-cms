@@ -6,14 +6,30 @@
       class="m-b-20px"
       :closable="false"
     />
-    <el-row :gutter="20">
+    <el-row :gutter="40">
       <el-col :span="17">
         <el-form-item prop="title" label="标题">
           <el-input v-model="formModel.title"></el-input>
         </el-form-item>
-        <el-row :gutter="10">
-          <el-col :span="12">
-            <el-form-item prop="categoryId" label="栏目">
+        <el-form-item prop="content" label="内容">
+          <x-editor v-model="formModel.content" @change="_editorChange" />
+        </el-form-item>
+      </el-col>
+
+      <el-col :span="7">
+        <el-form-item label-width="0">
+          <el-button type="primary" @click="_save">发布</el-button>
+          <el-button @click="_preview">预览</el-button>
+          <el-button @click="_close">返回</el-button>
+        </el-form-item>
+
+        <el-collapse v-model="activeCollapse">
+          <el-collapse-item title="文章状态" name="1">
+            <el-checkbox v-model="formModel.top" :true-label="1" :false-label="0">是否置顶</el-checkbox>
+            <el-checkbox v-model="formModel.status" :true-label="1" :false-label="0">保存草稿</el-checkbox>
+          </el-collapse-item>
+          <el-collapse-item title="分类" name="2">
+            <el-form-item prop="categoryId" label-width="0">
               <x-select-tree
                 v-model="formModel.categoryId"
                 :data="categoryList"
@@ -24,12 +40,9 @@
                 }"
               />
             </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item>
-              <template #label>
-                标签 <el-tooltip content="标签添加请至标签列表处添加" placement="top"><i class="el-icon-info"></i></el-tooltip>
-              </template>
+          </el-collapse-item>
+          <el-collapse-item title="标签" name="3">
+            <el-form-item label-width="0">
               <el-select
                 v-model="formModel.tags"
                 multiple
@@ -44,41 +57,36 @@
                   :label="item.name"
                 />
               </el-select>
+              <span class="f-s-12px color-sub-text">(标签添加请至标签列表处添加)</span>
             </el-form-item>
-          </el-col>
-        </el-row>
-      </el-col>
-      <el-col :span="7">
-        <el-form-item prop="thumbnail" label="缩略图">
-          <div
-            v-loading="loading"
-            class="uploader"
-            @click="_uploadThumbnail"
-          >
-            <img v-if="formModel.thumbnail" :src="formModel.thumbnail" class="avatar" />
-            <i v-else class="el-icon-plus uploader-icon"></i>
-          </div>
-        </el-form-item>
+          </el-collapse-item>
+          <el-collapse-item title="缩略图" name="4">
+            <el-form-item prop="thumbnail" label-width="0">
+              <div
+                v-loading="loading"
+                class="uploader"
+                @click="_uploadThumbnail"
+              >
+                <img v-if="formModel.thumbnail" :src="formModel.thumbnail" class="avatar" />
+                <i v-else class="el-icon-plus uploader-icon"></i>
+              </div>
+            </el-form-item>
+          </el-collapse-item>
+          <el-collapse-item title="摘要" name="5">
+            <el-form-item prop="summary" label-width="0">
+              <el-input
+                v-model="formModel.summary"
+                type="textarea"
+                maxlength="300"
+                :rows="3"
+                show-wrod-limt
+                autosize
+              />
+            </el-form-item>
+          </el-collapse-item>
+        </el-collapse>
       </el-col>
     </el-row>
-    <el-form-item prop="content" label="内容">
-      <x-editor v-model="formModel.content" @change="_editorChange" />
-    </el-form-item>
-    <el-form-item prop="summary" label="摘要">
-      <el-input
-        v-model="formModel.summary"
-        type="textarea"
-        maxlength="300"
-        show-wrod-limt
-        autosize
-      />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="_save(1)">发布</el-button>
-      <el-button type="primary" @click="_save(0)">保存为草稿</el-button>
-      <el-button @click="_preview">预览</el-button>
-      <el-button @click="_close">返回</el-button>
-    </el-form-item>
   </el-form>
 </template>
 
@@ -93,6 +101,7 @@ export default {
 
   data () {
     return {
+      activeCollapse: ['1', '2'],
       loading: false,
       editorStyle: [],
       formModel: {
@@ -100,10 +109,11 @@ export default {
         content: '',
         keywords: '',
         summary: '',
-        status: 1,
+        status: 0,
         categoryId: null,
         thumbnail: '',
-        tags: []
+        tags: [],
+        top: 0
       },
       rules: {
         title: [
@@ -186,13 +196,12 @@ export default {
       }
     },
 
-    _save (status) {
+    _save () {
       this.$refs.form.validate(async isValid => {
         if (!isValid) return
         this.$_Dcommon.showLoading('保存中...')
         await API['article/article'].save({
           ...this.formModel,
-          status,
           tags: JSON.stringify(this.formModel.tags)
         })
         this.$_Dcommon.hideLoading()
