@@ -6,6 +6,7 @@
       </template>
 
       <d-table
+        ref="table"
         :request-method="getTableData"
       >
         <template v-slot:status="{ row }">
@@ -27,7 +28,12 @@
 import API from '@/api'
 export default {
   name: 'Article',
+
   methods: {
+    reload() {
+      this.$refs.table.reload()
+    },
+
     async getTableData(params) {
       this.$_Dcommon.showLoading()
       const { data, count } = await API['article/article'].getList({
@@ -72,7 +78,7 @@ export default {
             this.$_Dcommon.showLoading('删除中...')
             await API['article/article'].del({ id })
             this.$_Dcommon.hideLoading()
-            this.init()
+            this.reload()
           }
         }
       })
