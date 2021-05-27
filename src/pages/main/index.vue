@@ -2,7 +2,7 @@
   <el-container class="container">
     <el-aside width="250px" :class="[isCollapse && 'is-collapse']">
       <div class="logo flex-center">
-        <img src="../../assets/images/logo.png" class="logo-img" alt="">
+        <img :src="logo" class="logo-img">
       </div>
       <Menu :collapse="isCollapse" />
     </el-aside>
@@ -67,10 +67,12 @@ import { mapState } from 'vuex'
 import API from '@/api'
 export default {
   name: 'Main',
+
   components: {
     Menu,
     BreadCrumb
   },
+
   data () {
     return {
       isCollapse: false,
@@ -78,8 +80,12 @@ export default {
       mode: 'day'
     }
   },
+
   computed: {
     ...mapState('authen', ['userInfo']),
+    logo() {
+      return this.isCollapse ? require('@/assets/images/nkm-cms-1.png') : require('@/assets/images/nkm-cms.png')
+    },
     noPadding () {
       const routerName = ['Role', 'Resource', 'Dictionary', 'PersonalCenter', 'Dashboard']
       return routerName.findIndex(v => v === this.$route.name) !== -1
@@ -89,9 +95,11 @@ export default {
       return routerName.findIndex(v => v === this.$route.name) !== -1
     }
   },
+
   created () {
     this._toggleMode(localStorage.getItem('mode'))
   },
+
   methods: {
     async _dropdown (command) {
       /* eslint-disable */

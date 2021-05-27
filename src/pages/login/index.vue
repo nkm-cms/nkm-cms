@@ -2,7 +2,7 @@
   <div class="container">
     <div class="form-wrapper">
       <div class="logo align-center">
-        <img src="../../assets/images/logo.png" width="60" alt="">
+        <img src="../../assets/images/nkm-cms.png" width="200">
       </div>
       <el-form ref="form" :model="formModel" :rules="formRules" size="medium">
         <el-form-item label="用户名" prop="loginName">
