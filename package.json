@@ -12,9 +12,10 @@
   },
   "dependencies": {
     "@tanbo/textbus": "^1.0.0-beta.52",
-    "@xuanmo/d-table": "^0.0.7",
+    "@xuanmo/d-table": "^1.0.0",
     "@xuanmo/datejs": "^1.0.3",
-    "axios": "^0.19.2",
+    "@xuanmo/javascript-utils": "^0.0.5",
+    "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
     "element-ui": "^2.13.2",
     "path-to-regexp": "^6.1.0",
