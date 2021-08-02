@@ -70,7 +70,7 @@
 
 <script>
 import API from '@/api'
-import { getQueryParams } from '@/utils'
+import { formatQueryParams } from '@xuanmo/javascript-utils'
 import { mapMutations } from 'vuex'
 export default {
   name: 'FileDetail',
@@ -121,7 +121,7 @@ export default {
       try {
         this.delLoading = true
         await API.media.delFile({
-          path: getQueryParams(this.data.url).path
+          path: formatQueryParams(this.data.url).path
         })
         this.delLoading = false
         this.showDelPopver = false
