@@ -269,18 +269,18 @@ export default {
   }
 }
 .upload-images {
-  /deep/ .el-upload-list__item,
-  /deep/ .el-upload--picture-card {
+  ::v-deep .el-upload-list__item,
+  ::v-deep .el-upload--picture-card {
     width: 120px;
     height: 120px;
   }
 
-  /deep/ .el-upload--picture-card {
+  ::v-deep .el-upload--picture-card {
     background: none;
     line-height: 120px;
   }
 }
-/deep/ .el-form-item__content {
+::v-deep .el-form-item__content {
   > .ck-editor__editable {
     min-height: 300px;
     border: 1px solid var(--color-border);

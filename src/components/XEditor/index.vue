@@ -172,7 +172,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/ .textbus-container {
+::v-deep .textbus-container {
   input {
     appearance: auto;
     vertical-align: middle;

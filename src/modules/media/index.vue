@@ -265,12 +265,12 @@ export default {
   display: flex;
   align-items: center;
 
-  /deep/ a {
+  ::v-deep a {
     font-weight: initial;
   }
 
-  /deep/ .el-breadcrumb__separator,
-  /deep/ .el-breadcrumb__inner {
+  ::v-deep .el-breadcrumb__separator,
+  ::v-deep .el-breadcrumb__inner {
     vertical-align: middle;
   }
 }
