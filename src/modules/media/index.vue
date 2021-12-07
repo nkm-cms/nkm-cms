@@ -60,7 +60,7 @@
         :key="index"
         :menus="menus"
         tag="li"
-        @item-click="$event => hanldeContextmenu($event, item)"
+        @item-click="$event => handleContextmenu($event, item)"
       >
         <div
           class="item align-center"
@@ -135,7 +135,7 @@ export default {
   methods: {
     ...mapActions('media', ['readDirectory']),
 
-    async hanldeContextmenu($event, { filename, isDirectory }) {
+    async handleContextmenu($event, { filename, isDirectory }) {
       this.$_Dcommon.confirm({
         title: '警告',
         message: `确认删除${isDirectory ? '文件夹' : '文件'}吗？`,
