@@ -4,12 +4,16 @@ import { isObject } from '.'
 /**
  * 选择文件
  * @param type 文件类型
+ * @param attrs 属性
  * @returns {Promise<FileList>}
  */
-export function selectFileHandler(type = '') {
+export function selectFileHandler(type = '', attrs = {}) {
   return new Promise(resolve => {
     const fileInput = document.createElement('input')
     fileInput.setAttribute('type', 'file')
+    for (const [attr, value] of Object.entries(attrs)) {
+      fileInput.setAttribute(attr, value)
+    }
     switch (type) {
       case 'image':
         fileInput.setAttribute('accept', 'image/*')

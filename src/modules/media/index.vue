@@ -215,7 +215,9 @@ export default {
 
     async _uploadFile() {
       try {
-        const file = await selectFileHandler()
+        const file = await selectFileHandler('', {
+          multiple: true
+        })
         this.uploadLoading = true
         await uploadFile(file, {
           type: 'media',
